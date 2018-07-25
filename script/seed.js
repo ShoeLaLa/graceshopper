@@ -26,7 +26,7 @@ async function seed() {
   ])
   const products = await Promise.all([
     Product.create({name: 'air ones', price: 100, picture: './pictures/airJordan.jpg'}) ,
-    Product.create({name: 'Kyrie', price: 200, picture: './pictures/footLocker.wpp'}) ,
+    Product.create({name: 'Kyrie', price: 200, picture: './pictures/footLocker.jpg'}) ,
     Product.create({name: 'Clown Shoes', price: 150, picture: './pictures/clown-shoes-red-and-yellow.jpg'}) ,
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
