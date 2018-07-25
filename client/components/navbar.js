@@ -12,7 +12,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav>
       {isLoggedIn ? (
         <div>
-          <Button bsStyle="primary">
+          <Button bsStyle="warning">
             <Link to="/home">Home</Link>
           </Button>
           <Button bsStyle="danger">
@@ -23,7 +23,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       ) : (
         <div>
-          <Button bsStyle="primary">
+          <Button bsStyle="warning">
             <Link to="/login">Login</Link>
           </Button>
           <Button bsStyle="success">
