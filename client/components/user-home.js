@@ -15,8 +15,6 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <AllProducts />
       <Jumbotron>
         <h3>Welcome, {username}</h3>
         <h4> Email: {email}</h4>
@@ -24,6 +22,7 @@ export const UserHome = props => {
         <br />
         <ChangePassword />
       </Jumbotron>
+      <AllProducts />
     </div>
   )
 }
