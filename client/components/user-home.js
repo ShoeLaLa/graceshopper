@@ -7,10 +7,11 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {email} = props
+  const username = email.split('@')[0]
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Welcome, {username}</h3>
     </div>
   )
 }
