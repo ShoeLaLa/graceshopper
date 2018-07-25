@@ -32,9 +32,10 @@ router.put('/edit/password', async (req, res, next) => {
   try {
     const user = await User.findByEmail(req.body.email)
     if (user) {
-      if ( user.password === user.correctPassword(req.body.oldPassword) ){
+      if ( user.correctPassword(req.body.oldPassword) ){
         await user.update({
-          password: User.encryptPassword(req.body.newPassword, user.salt)
+          //a hook exists to handle encrypting this
+          password: req.body.newPassword,
         })
         res.json(true);
       } else {
