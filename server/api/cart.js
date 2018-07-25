@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Cart = require('../db/models')
 
-// GET api/carts/
+// GET /api/carts/
 router.get('/:cartId', async (req, res, next) => {
   try {
     const cart = await Cart.findById(req.params.cartId)
