@@ -10,7 +10,7 @@ class SingleProduct extends Component {
   render() {
     const {name, price, picture} = this.props.product
     return (
-      <div className="singleproduct">
+      <div>
         <Jumbotron>
           <img src={picture} alt="pic" />
           <h1>{name}</h1>
