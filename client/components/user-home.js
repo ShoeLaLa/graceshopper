@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import AllProducts from './allProducts'
 import {Jumbotron} from 'react-bootstrap'
 import ChangePassword from './ChangePassword'
 console.log(ChangePassword)
@@ -21,6 +22,7 @@ export const UserHome = props => {
         <br />
         <ChangePassword />
       </Jumbotron>
+      <AllProducts />
     </div>
   )
 }
