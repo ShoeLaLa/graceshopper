@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "graceshopper-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: graceshopper-shoelala # see README
+  api_key:
+    secure: "o3+Y83joSZKYo4/VTZ5G8QxTGXCLDlZwwpxibBxgV6/vvug9CuWXLfvjYni3Qn4LXZdt9VStL3JZJQeaAfaX5MG/+H2TDebGm2AMmSCs2cXbAYFziUga7Sci7L7FOQI2cq1wBtj38CU0OAssrTDtqN0DmmRr3AZmdWI+w47/xQi3wY6Bl4ZQ0jfsBtvB89e4aZrnQCPP3+fqKwqWutqc68WOOSESdm0U2RpIwJ454gr5xp+qmxKbIepl78bo3C6Yt3gsDyLgpMBtwtKZnm8o9VheinXQj+AnCd/Kvh5nZ+G5AIvnWIdr1uY4kdhfEzh7PFhgch0gGJqvdAI/izwCSilmqx0bvEDqd/zdObk0jWKasK4kGTzKOhnZY6MaFWT+mJ95vBzAvKoFQ7ned/gtjiopthrxtvid3M7ijYD5mj4gyeJgXH2fmxAQmC4R3kWhP/RPqlwlTMseufx401z2mZbnzmVWSQEFkpRIo/CIRZVIZDobjLf+JVkmn1EibBQ0EdR0IdFvoBuJlJyKvryhNXimZpYCH7XJpryV39kRnq6PEKPyrEPEbDBLG6ZpcTlvVwarmUmm9pF4EWABBV9QoXtTfCMZ9/ic58i4pG+ByREbKd/KPb6mIpIKc1+uxPU/XGGP892yN+c4v/uVb25PM3/0dSGLTJ1xN2wHYfaRob4=" # see README
