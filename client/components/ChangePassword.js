@@ -50,7 +50,7 @@ class ChangePassword extends Component {
         oldPassword,
         newPassword: newPassword1,
       }
-      const response = await axios.put('/api/users/edit', postBody)
+      const response = await axios.put('/api/users/edit/password', postBody)
       //TODO: handle error if password does not match oldPassword
     } else {
       this.setState({...this.state, error: 'mismatching'})

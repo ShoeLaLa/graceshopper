@@ -26,3 +26,25 @@ router.get('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+
+// PUT /api/users/edit/password
+router.put('/edit/password', async (req, res, next) => {
+  try {
+    const user = await User.findByEmail(req.body.email)
+    if (user) {
+      if ( user.password === user.correctPassword(req.body.oldPassword) ){
+        await user.update({
+          password: User.encryptPassword(req.body.newPassword, user.salt)
+        })
+        res.json(true);
+      } else {
+        res.status(401).json(false);
+      }
+    } else {
+      res.status(404)
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
+})
