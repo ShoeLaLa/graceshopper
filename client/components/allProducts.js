@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import React from 'react'
 import {getAllProducts} from '../store/products'
 import {Link, Route} from 'react-router-dom'
+import ProductCard from './productCard';
 
 class allProducts extends React.Component{
     async componentDidMount(){
@@ -13,7 +14,7 @@ class allProducts extends React.Component{
             <ul>
                 {this.props.allProducts.map((product)=>{
                     return(
-                        <h3 key = {product.id}>{product.name}</h3>
+                        <ProductCard key={product.id} product={product} />
                     )
                 })}
             </ul>
