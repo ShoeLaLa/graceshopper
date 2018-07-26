@@ -49,7 +49,7 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   router.get('/', passport.authenticate('github', {
     scope: 'username', 
     successRedirect: '/home', 
-    failureRedirect:'login'}))
+    failureRedirect:'/login'}))
 
   router.get(
     '/callback',
