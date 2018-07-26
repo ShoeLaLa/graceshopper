@@ -12,23 +12,33 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav>
       {isLoggedIn ? (
         <div>
-          <Button bsStyle="warning">
-            <Link to="/home">Home</Link>
-          </Button>
-          <Button bsStyle="danger">
-            <Link to="#" onClick={handleClick}>
+          <Link to="/home">
+            <Button bsStyle="warning">Home</Button>
+          </Link>
+
+          <Link to="/#">
+            <Button bsStyle="danger" onClick={handleClick}>
               Logout
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       ) : (
         <div>
-          <Button bsStyle="warning">
-            <Link to="/login">Login</Link>
-          </Button>
-          <Button bsStyle="success">
-            <Link to="/signup">Sign Up</Link>
-          </Button>
+          <Link to="/login">
+            <Button bsStyle="warning">Login</Button>
+          </Link>
+
+          <Link to="/signup">
+            <Button bsStyle="success">Signup</Button>
+          </Link>
+
+          <Link to="/products">
+            <Button bsStyle="info">All Shoes</Button>
+          </Link>
+
+          <Link to="/cart">
+            <Button bsStyle="default">My Cart</Button>
+          </Link>
         </div>
       )}
     </nav>

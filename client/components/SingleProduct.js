@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {getSingleProduct} from '../store/selectedProduct'
-import {Jumbotron} from 'react-bootstrap'
+import {Jumbotron, Button} from 'react-bootstrap'
 
 class SingleProduct extends Component {
   async componentDidMount() {
@@ -18,6 +18,9 @@ class SingleProduct extends Component {
           <img src={picture} alt="pic" />
           <h1>{name}</h1>
           <h3>Price: {`$` + price}</h3>
+          <Button bsStyle="success">
+            <Link to="/cart">Add to Cart</Link>
+          </Button>
         </Jumbotron>
       </div>
     )
