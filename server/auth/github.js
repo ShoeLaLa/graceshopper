@@ -30,8 +30,6 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   const strategy = new GithubStrategy(
     githubConfig,
     (token, refreshToken, profile, done) => {
-      console.log('hellllooooooooo')
-      console.log(profile)
       const githubId = profile.id
       const name = profile.displayName
       const username = profile.username 
