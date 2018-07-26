@@ -45,7 +45,10 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
 
   passport.use(strategy)
 
-  router.get('/', passport.authenticate('github', {scope: 'userName'}))
+  router.get('/', passport.authenticate('github', {
+    scope: 'userName', 
+    successRedirect: '/home', 
+    failureRedirect:'/login'}))
 
   router.get(
     '/callback',
