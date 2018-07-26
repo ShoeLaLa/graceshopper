@@ -1,9 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {Image, Button} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import {Image, Button, ButtonGroup, Label} from 'react-bootstrap'
+import axios from 'axios'
 
 const ProductCard = props => {
   const {id, picture, price, name} = props.product
+  // const addToCart = props.addToCart;
+  const addToCart = async (id) => {
+    await axios.post('/api/carts/', {id} );
+  }
+//   const getCart = async () => {
+//     const response = await axios.get('/api/carts/');
+//     console.log(response.data);
+//   }
   return (
     <div className="card">
       <Image
@@ -19,7 +28,7 @@ const ProductCard = props => {
           <Button bsStyle="default">More details</Button>
         </Link>
         <Link to="/">
-          <Button bsStyle="success">Add to Cart </Button>
+          <Button onClick={() => addToCart(id)} bsStyle="success">Add to Cart </Button>
         </Link>
         <Link to="/">
           <Button bsStyle="primary">Add to Wishlist</Button>
@@ -29,5 +38,11 @@ const ProductCard = props => {
     </div>
   )
 }
+
+// const mapDispatch = (dispatch) => {
+//   return {
+//     addToCart: (id) => dispatch(addToCart(id)),
+//   }
+// }
 
 export default ProductCard
