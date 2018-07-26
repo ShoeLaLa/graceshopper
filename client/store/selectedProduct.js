@@ -21,7 +21,7 @@ export const getSingleProduct = id => {
   }
 }
 
-const reducer = (state, action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_SINGLE_PRODUCT:
       return action.payload
