@@ -33,7 +33,6 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
       const githubId = profile.id
       const name = profile.displayName
       const username = profile.username 
-      
 
       User.findOrCreate({
         where: {githubId},
@@ -47,14 +46,8 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   passport.use(strategy)
 
   router.get('/', passport.authenticate('github', {
-    scope: 'username', 
-    successRedirect: '/home', 
-    failureRedirect:'/login'}))
-
-  router.get(
-    '/callback',
-    passport.authenticate('github', {
-      successRedirect: '/home',
+      scope: 'username', 
+      successRedirect: '/home', 
       failureRedirect: '/login'
     })
   )
