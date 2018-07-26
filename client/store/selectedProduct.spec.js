@@ -1,6 +1,5 @@
 import {expect} from 'chai'
-import {me, logout} from './user'
-import {getAllProducts} from './products'
+import {getSingleProduct} from './selectedProduct'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -27,14 +26,16 @@ describe('thunk creators', () => {
     mockAxios.restore()
     store.clearActions()
   })
-  describe('get all products state', () => {
-    it('eventually dispatched the RECEIVE ALL PRODUCTS action', async () => {
-      const fakeProduct = require('../../testData/products')
-      mockAxios.onGet('/api/products').replyOnce(200, fakeProduct)
-      await store.dispatch(getAllProducts())
+
+  describe('get selected product state', () => {
+    it('eventually dispatched the RECEIVED SINGLE PRODUCT action', async () => {
+      const testProduct = require('../../testData/products').products[0]
+      console.log('testProduct', testProduct)
+      mockAxios.onGet('/api/products/1').replyOnce(200, testProduct)
+      await store.dispatch(getSingleProduct(1))
       const actions = store.getActions()
-      expect(actions[0].type).to.be.equal('RECEIVE_PRODUCTS')
-      expect(actions[0].payload).to.be.deep.equal(fakeProduct)
+      expect(actions[0].type).to.be.equal('RECEIVE_SINGLE_PRODUCT')
+      expect(actions[0].payload).to.be.deep.equal(testProduct)
     })
   })
 })
