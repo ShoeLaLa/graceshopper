@@ -14,9 +14,13 @@ describe('User routes', () => {
   describe('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
 
-    beforeEach(() => {
-      return User.create({
+    beforeEach( async () => {
+      await User.create({
         email: codysEmail
+      })
+      await User.create({
+        email: 'me@gmail.com',
+        password: 'password1'
       })
     })
 
@@ -36,6 +40,34 @@ describe('User routes', () => {
 
       expect(res.body).to.be.an('object')
       expect(res.body.email).to.be.equal(codysEmail)
+    })
+    it('PUT /api/users/edit/password', async () => {
+      const body = {
+        email: 'me@gmail.com',
+        oldPassword: 'password1',
+        newPassword: 'password2',
+      }
+      await request(app)
+        .put('/api/users/edit/password')
+        .send(body)
+        .expect(200)
+        .expect( (res) => {
+          expect(res.body).to.equal(true)         
+        })
+    })
+    it('PUT /api/users/edit/password does not work on bad password', async () => {
+      const body = {
+        email: 'me@gmail.com',
+        oldPassword: 'password',
+        newPassword: 'password2',
+      }
+      await request(app)
+        .put('/api/users/edit/password')
+        .send(body)
+        .expect(401)
+        .expect( (res) => {
+          expect(res.body).to.equal(false)
+        })
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')

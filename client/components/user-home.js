@@ -18,9 +18,9 @@ export const UserHome = props => {
       <Jumbotron>
         <h3>Welcome, {username}</h3>
         <h4> Email: {email}</h4>
-        <h4> Change Password</h4>
         <br />
-        <ChangePassword />
+        <h4> Change Password</h4>
+        <ChangePassword email={email}/>
       </Jumbotron>
       <AllProducts />
     </div>
