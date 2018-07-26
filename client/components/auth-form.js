@@ -1,8 +1,11 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-
+import {Button, Image} from 'react-bootstrap'
+// import githubImg from '../images/GitHub-Mark-120px-plus.jpg'
+// import googleImg from '../images/google-button.jpg'
 /**
  * COMPONENT
  */
@@ -29,8 +32,20 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
-      <a href="/auth/github">{displayName} with Github</a>
+
+      <Link to="/auth/google">
+        <Button bsStyle="info">
+          {displayName} with{' '}
+          <Image src="/pictures/google-button.jpg" alt="google" />
+        </Button>
+      </Link>
+
+      <Link to="/auth/github">
+        <Button bsStyle="info">
+          {displayName} with{' '}
+          <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" />
+        </Button>
+      </Link>
     </div>
   )
 }
