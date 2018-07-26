@@ -46,6 +46,9 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   passport.use(strategy)
 
   router.get('/', passport.authenticate('github', {
-    scope: 'username', 
-    successRedirect: '/home', 
-    failureRedirect:'/login'}))
+      scope: 'username', 
+      successRedirect: '/home', 
+      failureRedirect: '/login'
+    })
+  )
+}
