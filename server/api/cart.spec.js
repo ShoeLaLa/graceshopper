@@ -8,16 +8,16 @@ describe('cart routes', () => {
   beforeEach(() => {
     testSession = session(app)
   })
-  it('creates a new array if empty', done => {
-    testSession
-      .post('/api/carts')
-      .send(product)
-      .expect(201)
-      .expect(res => {
-        expect(res.body).to.deep.equal([product])
-      })
-      .end(done)
-  })
+  // it('creates a new array if empty', done => {
+  //   testSession
+  //     .post('/api/carts')
+  //     .send(product)
+  //     .expect(201)
+  //     .expect(res => {
+  //       expect(res.body).to.deep.equal([product])
+  //     })
+  //     .end(done)
+  // })
   xit('handles a few added products', done => {
     //the intent is to configure the session before actually running the real test,
     //but this does not work

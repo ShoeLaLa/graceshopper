@@ -12,5 +12,12 @@ const middleware = composeWithDevTools(
 )
 const store = createStore(reducer, middleware)
 
+const updateCart = async () => {
+  const {cart} = store.getState()
+  await axios.post('/api/carts', cart.products)
+}
+
+store.subscribe(updateCart)
+
 export default store
 export * from './user'
