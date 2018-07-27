@@ -9,17 +9,15 @@ import ChangePassword from './ChangePassword'
  */
 export const UserHome = props => {
   const {email, username} = props
-  console.log(props)
   let convertedEmail = '';
   if(email !== null){
-    console.log('IAM HEREEREREER')
     convertedEmail= email.split('@')[0]
   }
 
   return (
     <div>
       <Jumbotron>
-        {username?  <h3>Welcome, {username}</h3>: <h3>Welcome, {convertedEmail}</h3>}
+        <h3>Welcome, {username ? username : convertedEmail}</h3>
         {email? <h4> Email: {email}</h4>: <br/>}
         <br />
         <h4> Change Password</h4>
