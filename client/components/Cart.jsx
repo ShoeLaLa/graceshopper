@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import fetchCart from '../store/cart'
 import {Table} from 'react-bootstrap'
-import CartTableBody from './CartTableBody'
+import CartProduct from './CartProduct'
 
 const dummyCart = [
   {
@@ -24,35 +24,15 @@ const dummyCart = [
 ]
 
 class Cart extends Component {
-  constructor() {
-    super()
-    this.state = {1: 1} || this.initialState()
-  }
-
-  // determines state for each product quantity //
-  initialState = () => {
-    let cartProducts = this.props.cart
-    let state = {}
-    if (cartProducts.length > 1) {
-      cartProducts.forEach(product => {
-        state[product.id] = 1
-      })
-    }
-    return state
-  }
-
-  onQuantityChange = evt => {
-    console.log(evt.target.value)
-    this.setState({quantity: evt.target.value})
-  }
-
   async componentDidMount() {
     await this.props.fetchCart()
   }
 
   subTotal = () => {
     let subtotal = 0
-    dummyCart.forEach(product => (subtotal += product.price))
+    dummyCart.forEach(product => {
+      subtotal += product.price
+    })
     return subtotal
   }
 
@@ -67,12 +47,24 @@ class Cart extends Component {
             <th width="30%">Quantity</th>
           </tr>
         </thead>
-        <CartTableBody
-          products={dummyCart}
-          subtotal={subtotal}
-          onQuantityChange={this.onQuantityChange}
-          {...this.state}
-        />
+        <tbody>
+          {dummyCart.map(product => (
+            <CartProduct key={product.id} product={product} />
+          ))}
+          <tr>
+            <td
+              colSpan="3"
+              style={{
+                textAlign: 'right',
+                paddingRight: '20em'
+              }}
+            >
+              <strong>
+                Subtotal: <span style={{color: '#7f0000'}}>${subtotal}</span>
+              </strong>
+            </td>
+          </tr>
+        </tbody>
       </Table>
     )
   }
@@ -81,7 +73,6 @@ class Cart extends Component {
 const mapState = state => ({
   cart: state.cart
 })
-
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchCart())
 })
