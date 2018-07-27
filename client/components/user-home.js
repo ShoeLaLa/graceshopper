@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Jumbotron} from 'react-bootstrap'
 import ChangePassword from './ChangePassword'
-console.log(ChangePassword)
 
 /**
  * COMPONENT
