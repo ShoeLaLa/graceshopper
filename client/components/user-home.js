@@ -8,8 +8,8 @@ import ChangePassword from './ChangePassword'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
-  const username = email.split('@')[0]
+  const {email, username} = props
+  console.log(props)
 
   return (
     <div>
@@ -29,7 +29,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    username: state.user.username
   }
 }
 
