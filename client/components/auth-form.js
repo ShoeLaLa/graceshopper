@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {a} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
@@ -33,19 +33,19 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-      <Link to="/auth/google">
+      <a href="/auth/google">
         <Button bsStyle="info">
           {displayName} with{' '}
           <Image src="/pictures/google-button.jpg" alt="google" />
         </Button>
-      </Link>
+      </a>
 
-      <Link to="/auth/github">
+      <a href="/auth/github">
         <Button bsStyle="info">
           {displayName} with{' '}
           <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" />
         </Button>
-      </Link>
+      </a>
     </div>
   )
 }
