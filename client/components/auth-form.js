@@ -17,33 +17,35 @@ const AuthForm = props => {
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
-            <small>Email</small>
+            <small>Email: </small>
           </label>
           <input name="email" type="text" />
         </div>
         <div>
           <label htmlFor="password">
-            <small>Password</small>
+            <small>Password: </small>
           </label>
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <Button type="submit" bsStyle="outline-info waves-effect">
+            {displayName}
+          </Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
       <Link to="/auth/google">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/google-button.jpg" alt="google" />
+        <Button bsStyle="outline-primary waves-effect">
+          {displayName} with Google
+          {/* <Image src="/pictures/google-button.jpg" alt="google" /> */}
         </Button>
       </Link>
 
       <Link to="/auth/github">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" />
+        <Button bsStyle="outline-primary waves-effect">
+          {displayName} with GitHub
+          {/* <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" /> */}
         </Button>
       </Link>
     </div>
