@@ -1,14 +1,19 @@
 import {expect} from 'chai'
-import {fetchCart} from './cart'
+import {fetchCart, addToCartSession} from './cart'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
+import {
+  products as fakeCart,
+  product as newProduct,
+  addedProducts
+} from '../../testData/products'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-describe('thunk creators', () => {
+describe('cart thunk creators', () => {
   let store
   let mockAxios
 
@@ -23,15 +28,19 @@ describe('thunk creators', () => {
     mockAxios.restore()
     store.clearActions()
   })
-  describe('get cart by Id', () => {
-    const fakeCart = {id: 1, productId: 2, userId: 4}
+  it('get cart from session and eventually dispatches the GET CART action', async () => {
+    mockAxios.onGet(`/api/carts`).replyOnce(200, fakeCart)
+    await store.dispatch(fetchCart())
+    const actions = store.getActions()
+    expect(actions[0].type).to.be.equal('GET_CART')
+    expect(actions[0].cart).to.be.deep.equal(fakeCart)
+  })
 
-    it('eventually dispatches the GET CART action', async () => {
-      mockAxios.onGet(`/api/carts/1`).replyOnce(200, fakeCart)
-      await store.dispatch(fetchCart(1))
-      const actions = store.getActions()
-      expect(actions[0].type).to.be.equal('GET_CART')
-      expect(actions[0].cart).to.be.deep.equal(fakeCart)
-    })
+  it('adds a new product to session and store', async () => {
+    mockAxios.onPost('/api/carts', newProduct).reply(201, addedProducts)
+    await store.dispatch(addToCartSession(newProduct))
+    const actions = store.getActions()
+    expect(actions[0].type).to.equal('GET_CART')
+    expect(actions[0].cart).to.deep.equal(addedProducts)
   })
 })
