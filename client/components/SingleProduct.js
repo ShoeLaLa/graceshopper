@@ -9,9 +9,7 @@ class SingleProduct extends Component {
     await this.props.loadProducts()
   }
   render() {
-    const id = this.props.match.params.productId
-    const product = this.props.products.find(item => item.id == id)
-    const {name, price, picture} = product
+    const {name, price, picture} = this.props.product
     return (
       <div>
         <Jumbotron>
@@ -27,9 +25,13 @@ class SingleProduct extends Component {
   }
 }
 
-const mapState = state => ({
-  products: state.products
-})
+const mapState = state => {
+  const id = this.props.match.params.productId
+  const product = state.products.find(item => item.id == id)
+  return {
+    product: product
+  }
+}
 
 const mapDispatch = dispatch => ({
   loadProducts: () => dispatch(getAllProducts())
