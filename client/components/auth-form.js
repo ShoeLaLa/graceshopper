@@ -13,37 +13,43 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="center">
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+        <div className="md-form">
+          <input
+            type="text"
+            name="email"
+            className="form-control"
+            placeholder="E-mail address"
+          />
+          <label htmlFor="email" />
+        </div>
+        <div className="md-form">
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder="Password"
+          />
+          <label htmlFor="password" />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
+          <Button type="submit" bsStyle="outline-info waves-effect">
+            {displayName}
+          </Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
       <a href="/auth/google">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/google-button.jpg" alt="google" />
+        <Button bsStyle="outline-info waves-effect">
+          {displayName} with Google
         </Button>
       </a>
 
       <a href="/auth/github">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" />
+        <Button bsStyle="outline-info waves-effect">
+          {displayName} with GitHub
         </Button>
       </a>
     </div>
