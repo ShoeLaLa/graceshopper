@@ -30,7 +30,6 @@ describe('thunk creators', () => {
   describe('get selected product state', () => {
     it('eventually dispatched the RECEIVED SINGLE PRODUCT action', async () => {
       const testProduct = require('../../testData/products').products[0]
-      console.log('testProduct', testProduct)
       mockAxios.onGet('/api/products/1').replyOnce(200, testProduct)
       await store.dispatch(getSingleProduct(1))
       const actions = store.getActions()
