@@ -10,7 +10,7 @@ console.log(ChangePassword)
  */
 export const UserHome = props => {
   const {email} = props
-  const username = email.split('@')[0]
+  const username = email
 
   return (
     <div>
