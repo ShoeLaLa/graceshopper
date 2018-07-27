@@ -7,9 +7,9 @@ import {Button} from 'react-bootstrap'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>Shoe-LaLa</h1>
-    <h3>World's most extravagant shoe emporium!</h3>
-    <nav>
+    <h1 className="center">Shoe-LaLa</h1>
+    <h3 className="center">World's most extravagant shoe emporium!</h3>
+    <nav className="center">
       {isLoggedIn ? (
         <div>
           <Link to="/home">
