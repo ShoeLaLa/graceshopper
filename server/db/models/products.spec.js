@@ -20,6 +20,22 @@ describe('Product model', ()=>{
             }
         })
     })
+    describe('inventory property',  ()=>{
+        it('starts at 0', async ()=>{
+            try {
+                const newProduct = await Product.create({
+                    name: 'shoes',
+                    price: 100,
+                    picture :'something.jpg',
+                })
+                expect(newProduct.inventory).to.be.equal(0)
+                
+            } catch (error) {
+                console.log(error);
+                next(error);
+            }
+        })
+    })
 
 
 })

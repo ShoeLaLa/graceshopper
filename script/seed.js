@@ -28,17 +28,20 @@ async function seed() {
     Product.create({
       name: 'air ones',
       price: 100,
-      picture: '/pictures/airJordan.jpg'
+      picture: '/pictures/airJordan.jpg',
+      inventory: 3
     }),
     Product.create({
       name: 'Kyrie',
       price: 200,
-      picture: '/pictures/footLocker.jpg'
+      picture: '/pictures/footLocker.jpg',
+      inventory: 3
     }),
     Product.create({
       name: 'Clown Shoes',
       price: 150,
-      picture: '/pictures/clown-shoes-red-and-yellow.jpg'
+      picture: '/pictures/clown-shoes-red-and-yellow.jpg',
+      inventory: 3
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
