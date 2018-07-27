@@ -41,7 +41,7 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-      <a href="/auth/google">
+      <a href="/auth/google/callback">
         <Button bsStyle="outline-info waves-effect">
           {displayName} with Google
         </Button>
