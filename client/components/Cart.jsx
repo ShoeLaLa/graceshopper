@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import fetchCart from '../store/cart'
 import {Table} from 'react-bootstrap'
-import CartBody from './CartBody'
+import CartTableBody from './CartTableBody'
 
 const dummyCart = [
   {
@@ -24,6 +24,28 @@ const dummyCart = [
 ]
 
 class Cart extends Component {
+  constructor() {
+    super()
+    this.state = {1: 1} || this.initialState()
+  }
+
+  // determines state for each product quantity //
+  initialState = () => {
+    let cartProducts = this.props.cart
+    let state = {}
+    if (cartProducts.length > 1) {
+      cartProducts.forEach(product => {
+        state[product.id] = 1
+      })
+    }
+    return state
+  }
+
+  onQuantityChange = evt => {
+    console.log(evt.target.value)
+    this.setState({quantity: evt.target.value})
+  }
+
   async componentDidMount() {
     await this.props.fetchCart()
   }
@@ -45,7 +67,12 @@ class Cart extends Component {
             <th width="30%">Quantity</th>
           </tr>
         </thead>
-        <CartBody products={dummyCart} subtotal={subtotal} />
+        <CartTableBody
+          products={dummyCart}
+          subtotal={subtotal}
+          onQuantityChange={this.onQuantityChange}
+          {...this.state}
+        />
       </Table>
     )
   }
