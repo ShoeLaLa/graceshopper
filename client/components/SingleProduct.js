@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {getSingleProduct} from '../store/selectedProduct'
+import {getAllProducts} from '../store/products'
 import {Jumbotron, Button} from 'react-bootstrap'
 
 class SingleProduct extends Component {
   async componentDidMount() {
-    const id = this.props.match.params.productId
-    console.log('id', id)
-    await this.props.loadProduct(id)
+    await this.props.loadProducts()
   }
   render() {
-    const {name, price, picture} = this.props.product
+    const id = this.props.match.params.productId
+    const product = this.props.products.find(item => item.id == id)
+    const {name, price, picture} = product
     return (
       <div>
         <Jumbotron>
@@ -28,11 +28,11 @@ class SingleProduct extends Component {
 }
 
 const mapState = state => ({
-  product: state.selectedProduct
+  products: state.products
 })
 
 const mapDispatch = dispatch => ({
-  loadProduct: id => dispatch(getSingleProduct(id))
+  loadProducts: () => dispatch(getAllProducts())
 })
 
 export default connect(mapState, mapDispatch)(withRouter(SingleProduct))
