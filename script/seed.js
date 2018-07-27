@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Size, ProductSize} = require('../server/db/models')
 
 /**
  * Welcome to the seed file! This seed file uses a newer language feature called...
@@ -29,25 +29,122 @@ async function seed() {
       name: 'air ones',
       price: 100,
       picture: '/pictures/airJordan.jpg',
-      inventory: 3
     }),
     Product.create({
       name: 'Kyrie',
       price: 200,
       picture: '/pictures/footLocker.jpg',
-      inventory: 3
     }),
     Product.create({
       name: 'Clown Shoes',
       price: 150,
       picture: '/pictures/clown-shoes-red-and-yellow.jpg',
-      inventory: 3
     })
   ])
+  const sizes = await Promise.all([
+    Size.create({
+      size: 7
+    }),
+    Size.create({
+      size: 8
+    }),
+    Size.create({
+      size: 9
+    }),
+    Size.create({
+      size: 10
+    }),
+    Size.create({
+      size: 11
+    }),
+    Size.create({
+      size: 12
+    })
+  ])
+  const inventoryWithSize = await Promise.all([
+    ProductSize.create({
+      inventory: 4,
+      size: 7,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 4,
+      size: 8,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 5,
+      size: 9,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 10,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 12,
+      productId: 1
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 7,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 5,
+      size: 8,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 9,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 10,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 4,
+      size: 12,
+      productId: 2
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 7,
+      productId: 3
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 8,
+      productId: 3
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 9,
+      productId: 3
+    }),
+  ])
+  
+  
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
+  console.log(`seeded ${sizes.length} sizes`)
   console.log(`seeded successfully`)
 }
 

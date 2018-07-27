@@ -1,6 +1,9 @@
 const User = require('./user')
 const Product = require('./products')
 const Cart = require('./cart')
+const Size = require('./size')
+const db = require('../db')
+const Sequelize = require('sequelize')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,6 +15,18 @@ const Cart = require('./cart')
 // Cart.belongsTo(User)
 // Cart.hasMany(Product)
 
+//THROUGH TABLE DEFINITION FOR SIZE AND PRODUCT TO BE ABLE TO ASSIGN AN INVENTORY
+const ProductSize = db.define('productSize', {
+  inventory: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  }
+})
+
+Size.belongsToMany(Product, {through: ProductSize, foreignKey: 'size'});
+Product.belongsToMany(Size, {through: ProductSize})
+
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -21,5 +36,7 @@ const Cart = require('./cart')
 module.exports = {
   User,
   Product,
-  Cart
+  Cart, 
+  Size,
+  ProductSize
 }
