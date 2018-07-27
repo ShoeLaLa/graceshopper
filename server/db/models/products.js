@@ -20,6 +20,11 @@ const Product =  db.define('product', {
             notEmpty: true
         }
     },
+    inventory:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    }
 })
 
 module.exports = Product
