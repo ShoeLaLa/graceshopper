@@ -35,18 +35,15 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-
       <a href="/auth/google">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/google-button.jpg" alt="google" />
+        <Button bsStyle="outline-info waves-effect">
+          {displayName} with Google
         </Button>
       </a>
 
       <a href="/auth/github">
-        <Button bsStyle="info">
-          {displayName} with{' '}
-          <Image src="/pictures/GitHub-Mark-120px-plus.jpg" alt="github" />
+        <Button bsStyle="outline-info waves-effect">
+          {displayName} with GitHub
         </Button>
       </a>
     </div>
