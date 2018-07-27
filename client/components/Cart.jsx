@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import fetchCart from '../store/cart'
 import {Table} from 'react-bootstrap'
+import CartBody from './CartBody'
 
 const dummyCart = [
   {
@@ -13,7 +14,7 @@ const dummyCart = [
     inventory: 3
   },
   {
-    id: 3,
+    id: 4,
     name: 'Converse',
     price: 99,
     picture:
@@ -27,33 +28,24 @@ class Cart extends Component {
     await this.props.fetchCart()
   }
 
+  subTotal = () => {
+    let subtotal = 0
+    dummyCart.forEach(product => (subtotal += product.price))
+    return subtotal
+  }
+
   render() {
+    const subtotal = this.subTotal()
     return (
       <Table>
         <thead>
           <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th width="40%">Product</th>
+            <th width="30%">Price</th>
+            <th width="30%">Quantity</th>
           </tr>
         </thead>
-        <tbody>
-          {dummyCart.map(product => (
-            <tr key={product.id}>
-              <td>
-                <span>
-                  <img
-                    src={product.picture}
-                    style={{height: 'auto', width: '75px', marginRight: '15px'}}
-                  />
-                </span>
-                {product.name}
-              </td>
-              <td>${product.price}</td>
-              <td>1</td>
-            </tr>
-          ))}
-        </tbody>
+        <CartBody products={dummyCart} subtotal={subtotal} />
       </Table>
     )
   }
