@@ -13,10 +13,11 @@ router.get('/', async (req, res, next) => {
 
 router.get('/findAll', async(req,res,next)=>{
   try {
-    const all = await Product.findAll({
+    const allIncluded = await Product.findAll({
       include: [Size]
     })
-    res.json(all);
+    console.log(allIncluded)
+    res.json(allIncluded);
   } catch (error) {
     console.log('error on /findAll', error);
     next(error);
