@@ -6,12 +6,21 @@ import user from './user'
 import products from './products'
 import cart from './cart'
 import axios from 'axios'
+import {persistStore, persistReducer} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+  key: 'root',
+  storage: storage
+}
 
 const reducer = combineReducers({user, products, cart})
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, middleware)
+const store = createStore(persistedReducer, middleware)
 
 const updateCart = async () => {
   const {cart} = store.getState()
@@ -21,4 +30,5 @@ const updateCart = async () => {
 store.subscribe(updateCart)
 
 export default store
+export const persistor = persistStore(store)
 export * from './user'
