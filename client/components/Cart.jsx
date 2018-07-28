@@ -35,27 +35,28 @@ class Cart extends Component {
     }
   }
   async componentDidMount() {
-    this.subTotal()
     await this.props.fetchCart()
   }
 
-  subTotal = (productId, quantity) => {
-    let subtotal = 0
-    this.state.cart.forEach(product => {
-      subtotal += product.price
-    })
-    // update subtotal if product item quantity is changed //
+  // subTotal = (productId, quantity) => {
+  //   let subtotal = 0
+  //   const cart = this.props.cart
+  //   cart.forEach(product => {
+  //     subtotal += product.price
+  //   })
+  //   // update subtotal if product item quantity is changed //
 
-    if (quantity) {
-      const product = this.state.cart.find(prod => prod.id === productId)
-      const prodTotal = product.price * (quantity - product.quantity)
-      subtotal += prodTotal
-    }
-    this.setState({subtotal: subtotal})
-  }
+  //   if (quantity) {
+  //     const product = cart.find(prod => prod.id === productId)
+  //     const prodTotal = product.price * (quantity - product.quantity)
+  //     subtotal += prodTotal
+  //   }
+  //   this.setState({subtotal: subtotal})
+  // }
 
   render() {
     const {subtotal} = this.state
+    const cart = this.props.cart
     return (
       <div>
         <Table>
@@ -68,14 +69,10 @@ class Cart extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.cart.map(product => (
-              <CartProduct
-                key={product.id}
-                product={product}
-                subTotal={this.subTotal}
-              />
+            {cart.map(product => (
+              <CartProduct key={product.id} product={product} />
             ))}
-            <CartSubtotal subtotal={subtotal} />
+            <CartSubtotal />
           </tbody>
         </Table>
 

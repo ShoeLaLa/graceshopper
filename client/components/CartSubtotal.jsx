@@ -18,4 +18,13 @@ const CartSubtotal = ({subtotal}) => {
   )
 }
 
+const mapState = state => {
+  const subtotal = state.cart.reduce((accum, product) => {
+    return accum + product.price * product.quantity
+  })
+  return {
+    subtotal
+  }
+}
+
 export default CartSubtotal

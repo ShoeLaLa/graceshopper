@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Image, Button} from 'react-bootstrap'
-import {addToCartSession} from '../store/cart'
+import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
 import ProductSelector from './ProductSelector'
 
@@ -19,8 +19,9 @@ class ProductCard extends React.Component {
     const product = this.props.product
     const {id, picture, price, name} = product
     const handleClick = event => {
-      const newCart = [] //TODO
-      this.props.editCart(newCart)
+      const quantity = 0 //TODO
+      const size = 0 //TODO
+      this.props.editCart(product, quantity, size)
     }
     return (
       <div className="card">
@@ -63,7 +64,8 @@ class ProductCard extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    editCart: cart => dispatch(addToCartSession(cart))
+    editCart: (product, quantity, size) =>
+      dispatch(updateCart(product, quantity, size))
   }
 }
 

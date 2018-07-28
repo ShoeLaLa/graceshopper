@@ -34,6 +34,13 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
+export const wipeCart = () => {
+  return async dispatch => {
+    await axios.put('/api/carts', [])
+    dispatch(clearCart())
+  }
+}
+
 export const addToCartSession = cart => {
   return async dispatch => {
     await axios.put('/api/carts', cart)
@@ -43,6 +50,11 @@ export const addToCartSession = cart => {
 
 // INITIAL STATE //
 const cart = []
+// what I expect this to look like = [
+// {productId, name, price, quantity, size},
+// {productId, name, price, quantity, size},
+// ...
+// ]
 
 // REDUCER //
 
