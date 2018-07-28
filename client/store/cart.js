@@ -15,10 +15,11 @@ const getCart = cart => ({
 const clearCart = () => ({
   type: CLEAR_CART
 })
-export const updateCart = (product, quantity) => ({
+export const updateCart = (product, quantity, size) => ({
   type: UPDATE_CART,
   product,
-  quantity
+  quantity,
+  size
 })
 
 // THUNK CREATORS //
@@ -50,12 +51,13 @@ const cartReducer = (state = cart, action) => {
     case GET_CART:
       return action.cart
     case UPDATE_CART:
-      const {product, quantity} = action
+      const {product, quantity, size} = action
       const theProduct = state.find(cartProduct => {
         return product.id === cartProduct.id
       })
       if (theProduct) {
         theProduct.quantity = quantity
+        theProduct.size = size
         return state
       } else {
         const newProduct = {...product, quantity}
