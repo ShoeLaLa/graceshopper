@@ -10,8 +10,9 @@ export default class CartProduct extends Component {
   }
 
   onQuantityChange = evt => {
-    console.log(evt.target.value)
-    this.setState({quantity: evt.target.value})
+    const {value} = evt.target
+    this.setState({quantity: value})
+    this.props.subtotalFn(this.props.product.id, value)
   }
 
   render() {
@@ -37,6 +38,7 @@ export default class CartProduct extends Component {
             ))}
           </select>
         </td>
+        <td>${product.price * this.state.quantity}</td>
       </tr>
     )
   }

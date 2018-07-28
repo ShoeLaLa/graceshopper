@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import fetchCart from '../store/cart'
-import {Table} from 'react-bootstrap'
+import {Table, Button} from 'react-bootstrap'
 import CartProduct from './CartProduct'
+import CartSubtotal from './CartSubtotal'
 
 const dummyCart = [
   {
@@ -24,48 +25,67 @@ const dummyCart = [
 ]
 
 class Cart extends Component {
+  constructor() {
+    super()
+    this.state = {
+      subtotal: 0
+    }
+  }
   async componentDidMount() {
+    console.log('componentDidmount fired')
     await this.props.fetchCart()
+    this.subTotal()
   }
 
-  subTotal = () => {
+  subTotal = (productId, quantity) => {
     let subtotal = 0
     dummyCart.forEach(product => {
       subtotal += product.price
     })
-    return subtotal
+    // update subtotal if product item quantity is changed //
+    if (quantity) {
+      const product = dummyCart.find(product => product.id === productId)
+      const prodTotal = product.price * quantity - 1
+      subtotal += prodTotal
+    }
+    console.log(subtotal)
+    this.setState({subtotal})
+    console.log(this.state)
   }
 
   render() {
-    const subtotal = this.subTotal()
+    const {subtotal} = this.state
     return (
-      <Table>
-        <thead>
-          <tr>
-            <th width="40%">Product</th>
-            <th width="30%">Price</th>
-            <th width="30%">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dummyCart.map(product => (
-            <CartProduct key={product.id} product={product} />
-          ))}
-          <tr>
-            <td
-              colSpan="3"
-              style={{
-                textAlign: 'right',
-                paddingRight: '20em'
-              }}
-            >
-              <strong>
-                Subtotal: <span style={{color: '#7f0000'}}>${subtotal}</span>
-              </strong>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+      <div>
+        <Table>
+          <thead style={{fontSize: '0.9em'}}>
+            <tr>
+              <th width="40%">PRODUCT</th>
+              <th width="20%">PRODUCT PRICE</th>
+              <th width="20%">QUANTITY</th>
+              <th width="20%">PRICE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dummyCart.map(product => (
+              <CartProduct
+                key={product.id}
+                product={product}
+                subtotalFn={this.subTotal}
+              />
+            ))}
+            <CartSubtotal subtotal={subtotal} />
+          </tbody>
+        </Table>
+        <div
+          style={{
+            textAlign: 'right',
+            paddingRight: '16em'
+          }}
+        >
+          <Button>Proceed to checkout</Button>
+        </div>
+      </div>
     )
   }
 }
