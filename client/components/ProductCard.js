@@ -34,7 +34,6 @@ class ProductCard extends React.Component {
         selectedSize: event.target.value
       })
     }
-    console.log(this.state.selectedSize)
     //finding the inventory left from the size selected
     for(let i =0; i<this.state.quantity.length; i++){
       if(this.state.selectedSize == this.state.quantity[i].size){
