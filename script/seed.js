@@ -63,7 +63,7 @@ async function seed() {
   ])
   const inventoryWithSize = await Promise.all([
     ProductSize.create({
-      inventory: 4,
+      inventory: 0,
       size: 7,
       productId: 1
     }),

@@ -80,7 +80,7 @@ class ProductCard extends React.Component {
             <br/>
             {this.state.selectedSize !== 0 ?<h8>There are {this.state.inventoryLeft} left at this size! </h8> 
             :<h8>Select a size first to see how many left</h8>}
-            {this.inventoryLeft === 0? <h8> OUT OF STOCK I AM SO SORRY</h8>
+            {this.state.inventoryLeft === 0? <h8> OUT OF STOCK I AM SO SORRY</h8>
             
             : <FormControl
               componentClass="select"
