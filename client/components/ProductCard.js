@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Image, Button, FormControl, ControlLabel} from 'react-bootstrap'
+import {ControlLabel, FormControl, Image, Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
-import Axios from '../../node_modules/axios';
+import Axios from '../../node_modules/axios'
+// import ProductSelector from './ProductSelector'
 
 class ProductCard extends React.Component {
   constructor(props) {
@@ -13,11 +14,11 @@ class ProductCard extends React.Component {
       quantity: [],
       size: [],
       selectedSize: 0,
-      inventoryLeft: 1,
+      inventoryLeft: 1
     }
-    this.handleChange= this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
-  async componentDidMount(){
+  async componentDidMount() {
     const id = this.props.product.id
     const {data} = await Axios.get(`/api/products/size/${id}`)
     const inventory = await Axios.get(`/api/products/quantity/${id}`)
@@ -28,15 +29,15 @@ class ProductCard extends React.Component {
     })
   }
 
-  async handleChange(event){
-    if(event.target.name == 'size'){
+  async handleChange(event) {
+    if (event.target.name == 'size') {
       await this.setState({
         selectedSize: event.target.value
       })
     }
     //finding the inventory left from the size selected
-    for(let i =0; i<this.state.quantity.length; i++){
-      if(this.state.selectedSize == this.state.quantity[i].size){
+    for (let i = 0; i < this.state.quantity.length; i++) {
+      if (this.state.selectedSize == this.state.quantity[i].size) {
         await this.setState({
           inventoryLeft: this.state.quantity[i].inventory
         })
@@ -44,18 +45,26 @@ class ProductCard extends React.Component {
     }
   }
 
-  createOptionQuantity(){
+  createOptionQuantity() {
     const result = []
-    for(let i=1; i<this.state.inventoryLeft+1; i++){
-      result.push(<option value={i} key={i} name= 'quantity'>{i}</option>)
+    for (let i = 1; i < this.state.inventoryLeft + 1; i++) {
+      result.push(
+        <option value={i} key={i} name="quantity">
+          {i}
+        </option>
+      )
     }
-    return result;
+    return result
   }
 
   render() {
     const product = this.props.product
     const {id, picture, price, name} = product
-    const editCart = this.props.cart
+    const handleClick = event => {
+      const quantity = 0 //TODO
+      const size = 0 //TODO
+      this.props.editCart(product, quantity, size)
+    }
     return (
       <div className="card">
         <Link to={`/products/${id}`}>
@@ -76,20 +85,25 @@ class ProductCard extends React.Component {
           </Link>
           <div className="mdb-form">
             <ControlLabel>Quantity</ControlLabel>
-            <br/>
-            {this.state.selectedSize !== 0 ?<h8>There are {this.state.inventoryLeft} left at this size! </h8> 
-            :<h8>Select a size first to see how many left</h8>}
-            {this.state.inventoryLeft === 0? <h8> OUT OF STOCK I AM SO SORRY</h8>
-            
-            : <FormControl
-              componentClass="select"
-              placeholder="1"
-              className="selector"
-              name = 'quantity'
-            >
-            {this.createOptionQuantity()}
-            </FormControl>}
-            
+            <br />
+            {this.state.selectedSize !== 0 ? (
+              <h6>There are {this.state.inventoryLeft} left at this size! </h6>
+            ) : (
+              <h6>Select a size first to see how many left</h6>
+            )}
+            {this.state.inventoryLeft === 0 ? (
+              <h6> OUT OF STOCK I AM SO SORRY</h6>
+            ) : (
+              <FormControl
+                componentClass="select"
+                placeholder="1"
+                className="selector"
+                name="quantity"
+              >
+                {this.createOptionQuantity()}
+              </FormControl>
+            )}
+
             <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
             </button>
@@ -103,23 +117,22 @@ class ProductCard extends React.Component {
               name="size"
               onChange={this.handleChange}
             >
-
-              <option name= 'size'> Select Size </option>
-            {this.state.size.map(elem =>{
-              return(
-                <option value={elem} key={elem} name= 'size'>{elem}</option>
-              )
-            })}
+              <option name="size"> Select Size </option>
+              {this.state.size.map(elem => {
+                return (
+                  <option value={elem} key={elem} name="size">
+                    {elem}
+                  </option>
+                )
+              })}
             </FormControl>
             <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
             </button>
           </div>
-          <Link to="/">
-            <Button onClick={() => editCart(product)} bsStyle="success">
-              Add to Cart{' '}
-            </Button>
-          </Link>
+          <Button onClick={handleClick} bsStyle="success">
+            Add to Cart{' '}
+          </Button>
           <Link to="/">
             <Button bsStyle="primary">Add to Wishlist</Button>
           </Link>
@@ -132,7 +145,8 @@ class ProductCard extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    editCart: product => dispatch(updateCart(product, 1))
+    editCart: (product, quantity, size) =>
+      dispatch(updateCart(product, quantity, size))
   }
 }
 

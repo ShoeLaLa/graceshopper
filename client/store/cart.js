@@ -15,10 +15,11 @@ const getCart = cart => ({
 const clearCart = () => ({
   type: CLEAR_CART
 })
-export const updateCart = (product, quantity) => ({
+export const updateCart = (product, quantity, size) => ({
   type: UPDATE_CART,
   product,
-  quantity
+  quantity,
+  size
 })
 
 // THUNK CREATORS //
@@ -33,15 +34,27 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const addToCartSession = product => {
+export const wipeCart = () => {
   return async dispatch => {
-    const response = await axios.post('/api/carts', product)
-    dispatch(getCart(response.data))
+    await axios.put('/api/carts', [])
+    dispatch(clearCart())
+  }
+}
+
+export const addToCartSession = cart => {
+  return async dispatch => {
+    await axios.put('/api/carts', cart)
+    dispatch(getCart(cart))
   }
 }
 
 // INITIAL STATE //
 const cart = []
+// what I expect this to look like = [
+// {productId, name, price, quantity, size},
+// {productId, name, price, quantity, size},
+// ...
+// ]
 
 // REDUCER //
 
@@ -50,15 +63,16 @@ const cartReducer = (state = cart, action) => {
     case GET_CART:
       return action.cart
     case UPDATE_CART:
-      const {product, quantity} = action
+      const {product, quantity, size} = action
       const theProduct = state.find(cartProduct => {
         return product.id === cartProduct.id
       })
       if (theProduct) {
         theProduct.quantity = quantity
+        theProduct.size = size
         return state
       } else {
-        const newProduct = {...product, quantity}
+        const newProduct = {...product, quantity, size}
         return [...state, newProduct]
       }
     case CLEAR_CART:
