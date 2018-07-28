@@ -12,7 +12,7 @@ export default class CartProduct extends Component {
   onQuantityChange = evt => {
     const {value} = evt.target
     this.setState({quantity: value})
-    this.props.subtotalFn(this.props.product.id, value)
+    this.props.subTotal(this.props.product.id, value)
   }
 
   render() {

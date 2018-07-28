@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import fetchCart from '../store/cart'
+import {Link} from 'react-router-dom'
+import {fetchCart} from '../store/cart'
 import {Table, Button} from 'react-bootstrap'
 import CartProduct from './CartProduct'
 import CartSubtotal from './CartSubtotal'
@@ -12,7 +13,8 @@ const dummyCart = [
     price: 150,
     picture:
       'https://specials-images.forbesimg.com/imageserve/56ce157fe4b062f6b59a7bf7/416x416.jpg?background=000000&cropX1=0&cropX2=744&cropY1=95&cropY2=839',
-    inventory: 3
+    inventory: 3,
+    quantity: 1
   },
   {
     id: 4,
@@ -20,7 +22,8 @@ const dummyCart = [
     price: 99,
     picture:
       'https://static.highsnobiety.com/wp-content/uploads/2017/06/05200653/converse-one-piece-chucks-01-480x320.jpg',
-    inventory: 2
+    inventory: 2,
+    quantity: 1
   }
 ]
 
@@ -32,9 +35,8 @@ class Cart extends Component {
     }
   }
   async componentDidMount() {
-    console.log('componentDidmount fired')
-    await this.props.fetchCart()
     this.subTotal()
+    await this.props.fetchCart()
   }
 
   subTotal = (productId, quantity) => {
@@ -43,14 +45,13 @@ class Cart extends Component {
       subtotal += product.price
     })
     // update subtotal if product item quantity is changed //
+
     if (quantity) {
-      const product = dummyCart.find(product => product.id === productId)
-      const prodTotal = product.price * quantity - 1
+      const product = dummyCart.find(prod => prod.id === productId)
+      const prodTotal = product.price * (quantity - product.quantity)
       subtotal += prodTotal
     }
-    console.log(subtotal)
-    this.setState({subtotal})
-    console.log(this.state)
+    this.setState({subtotal: subtotal})
   }
 
   render() {
@@ -71,19 +72,24 @@ class Cart extends Component {
               <CartProduct
                 key={product.id}
                 product={product}
-                subtotalFn={this.subTotal}
+                subTotal={this.subTotal}
               />
             ))}
             <CartSubtotal subtotal={subtotal} />
           </tbody>
         </Table>
-        <div
-          style={{
-            textAlign: 'right',
-            paddingRight: '16em'
-          }}
-        >
-          <Button>Proceed to checkout</Button>
+
+        <div>
+          <span>
+            <Link to="products">
+              <Button bsStyle="info" style={{marginLeft: '5em'}}>
+                Continue Shopping
+              </Button>
+            </Link>
+          </span>
+          <span>
+            <Button style={{marginLeft: '54%'}}>Proceed to checkout</Button>
+          </span>
         </div>
       </div>
     )
