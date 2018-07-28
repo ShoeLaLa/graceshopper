@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, Cart} from './components'
 import {me} from './store'
 import AllProducts from './components/allProducts'
 import SingleProduct from './components/SingleProduct'
+import {fetchCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -33,6 +34,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         <Route path="/" component={Login} />
+        <Route path="/cart" component={Cart} />
       </Switch>
     )
   }
@@ -53,6 +55,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(fetchCart())
     }
   }
 }

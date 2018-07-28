@@ -5,6 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import products from './products'
 import cart from './cart'
+import axios from 'axios'
 
 const reducer = combineReducers({user, products, cart})
 const middleware = composeWithDevTools(
@@ -14,7 +15,7 @@ const store = createStore(reducer, middleware)
 
 const updateCart = async () => {
   const {cart} = store.getState()
-  await axios.post('/api/carts', cart.products)
+  await axios.post('/api/carts', cart)
 }
 
 store.subscribe(updateCart)
