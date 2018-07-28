@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {Jumbotron, Button} from 'react-bootstrap'
@@ -11,11 +10,11 @@ class SingleProduct extends Component {
   async componentDidMount() {
     await this.props.loadProducts()
   }
-  render() {
-    const product = this.props.product
 
-    const {name, price, picture} = this.props.product
-    const editCart = this.props.editCart
+  render() {
+    const id = this.props.match.params.productId
+    const product = this.props.products.find(item => item.id == id)
+    const {name, price, picture} = product
     return (
       <div>
         <Jumbotron>
@@ -49,10 +48,8 @@ class SingleProduct extends Component {
 }
 
 const mapState = state => {
-  const id = this.props.match.params.productId
-  const product = state.products.find(item => item.id == id)
   return {
-    product: product
+    products: state.products
   }
 }
 
