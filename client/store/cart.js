@@ -34,10 +34,10 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const addToCartSession = product => {
+export const addToCartSession = cart => {
   return async dispatch => {
-    const response = await axios.post('/api/carts', product)
-    dispatch(getCart(response.data))
+    await axios.put('/api/carts', cart)
+    dispatch(getCart(cart))
   }
 }
 
@@ -60,7 +60,7 @@ const cartReducer = (state = cart, action) => {
         theProduct.size = size
         return state
       } else {
-        const newProduct = {...product, quantity}
+        const newProduct = {...product, quantity, size}
         return [...state, newProduct]
       }
     case CLEAR_CART:

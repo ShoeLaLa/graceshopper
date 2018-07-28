@@ -1,8 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Image, Button, FormControl, ControlLabel} from 'react-bootstrap'
-import {updateCart} from '../store/cart'
+import {Image, Button} from 'react-bootstrap'
+import {addToCartSession} from '../store/cart'
 import {connect} from 'react-redux'
+import ProductSelector from './ProductSelector'
 
 class ProductCard extends React.Component {
   constructor(props) {
@@ -17,7 +18,10 @@ class ProductCard extends React.Component {
   render() {
     const product = this.props.product
     const {id, picture, price, name} = product
-    const editCart = this.props.cart
+    const handleClick = event => {
+      const newCart = [] //TODO
+      this.props.editCart(newCart)
+    }
     return (
       <div className="card">
         <Link to={`/products/${id}`}>
@@ -36,63 +40,17 @@ class ProductCard extends React.Component {
           <Link to={`/products/${id}`}>
             <Button bsStyle="default">More details</Button>
           </Link>
-          <div className="mdb-form">
-            <ControlLabel>Quantity</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="1"
-              className="selector"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </FormControl>
-            <button type="submit" className="btn-save btn btn-primary btn-sm">
-              Save
-            </button>
-          </div>
-          <div className="mdb-form">
-            <ControlLabel>Size</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="1"
-              className="selector"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-            </FormControl>
-            <button type="submit" className="btn-save btn btn-primary btn-sm">
-              Save
-            </button>
-          </div>
-          <Link to="/">
-            <Button onClick={() => editCart(product)} bsStyle="success">
-              Add to Cart{' '}
-            </Button>
-          </Link>
+          <ProductSelector
+            name="Quantity"
+            values={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          />
+          <ProductSelector
+            name="Size"
+            values={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}
+          />
+          <Button onClick={handleClick} bsStyle="success">
+            Add to Cart{' '}
+          </Button>
           <Link to="/">
             <Button bsStyle="primary">Add to Wishlist</Button>
           </Link>
@@ -105,7 +63,7 @@ class ProductCard extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    editCart: product => dispatch(updateCart(product, 1))
+    editCart: cart => dispatch(addToCartSession(cart))
   }
 }
 

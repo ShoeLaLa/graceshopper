@@ -12,6 +12,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/', (req, res, next) => {
+  console.log('receiving cart:', req.body)
   try {
     req.session.cart = req.body
   } catch (err) {

@@ -15,7 +15,7 @@ const ProductSelector = props => {
         {values.map(value => {
           return (
             <option key={value} value={value}>
-              value
+              {value}
             </option>
           )
         })}
