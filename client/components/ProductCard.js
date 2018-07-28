@@ -3,15 +3,53 @@ import {Link} from 'react-router-dom'
 import {Image, Button, FormControl, ControlLabel} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
+import Axios from '../../node_modules/axios';
 
 class ProductCard extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      quantity: 1,
-      size: 9
+      quantity: [],
+      size: [],
+      selectedSize: 0,
+      inventoryLeft: 1,
     }
+    this.handleChange= this.handleChange.bind(this)
+  }
+  async componentDidMount(){
+    const id = this.props.product.id
+    const {data} = await Axios.get(`/api/products/size/${id}`)
+    const inventory = await Axios.get(`/api/products/quantity/${id}`)
+    const numberOfShoes = inventory.data
+    this.setState({
+      size: data,
+      quantity: numberOfShoes
+    })
+  }
+
+  async handleChange(event){
+    if(event.target.name == 'size'){
+      await this.setState({
+        selectedSize: event.target.value
+      })
+    }
+    //finding the inventory left from the size selected
+    for(let i =0; i<this.state.quantity.length; i++){
+      if(this.state.selectedSize == this.state.quantity[i].size){
+        await this.setState({
+          inventoryLeft: this.state.quantity[i].inventory
+        })
+      }
+    }
+  }
+
+  createOptionQuantity(){
+    const result = []
+    for(let i=1; i<this.state.inventoryLeft+1; i++){
+      result.push(<option value={i} key={i} name= 'quantity'>{i}</option>)
+    }
+    return result;
   }
 
   render() {
@@ -38,24 +76,20 @@ class ProductCard extends React.Component {
           </Link>
           <div className="mdb-form">
             <ControlLabel>Quantity</ControlLabel>
-            <FormControl
+            <br/>
+            {this.state.selectedSize !== 0 ?<h8>There are {this.state.inventoryLeft} left at this size! </h8> 
+            :<h8>Select a size first to see how many left</h8>}
+            {this.state.inventoryLeft === 0? <h8> OUT OF STOCK I AM SO SORRY</h8>
+            
+            : <FormControl
               componentClass="select"
               placeholder="1"
               className="selector"
+              name = 'quantity'
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </FormControl>
+            {this.createOptionQuantity()}
+            </FormControl>}
+            
             <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
             </button>
@@ -66,23 +100,16 @@ class ProductCard extends React.Component {
               componentClass="select"
               placeholder="1"
               className="selector"
+              name="size"
+              onChange={this.handleChange}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
+
+              <option name= 'size'> Select Size </option>
+            {this.state.size.map(elem =>{
+              return(
+                <option value={elem} key={elem} name= 'size'>{elem}</option>
+              )
+            })}
             </FormControl>
             <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
