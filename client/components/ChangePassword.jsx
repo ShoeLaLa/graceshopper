@@ -2,7 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
 import axios from 'axios'
-import {FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap'
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+  Button
+} from 'react-bootstrap'
 
 //TODO: I want user id, but email might be okay
 
@@ -16,11 +22,11 @@ class ChangePassword extends Component {
       oldPassword: '',
       newPassword1: '',
       newPassword2: '',
-      error: null,
+      error: null
     }
   }
 
-  validatePassword(password){
+  validatePassword(password) {
     return password.length > 5
   }
 
@@ -38,17 +44,17 @@ class ChangePassword extends Component {
 
   handleChange(event) {
     console.log(event.target.name)
-    this.setState({ ...this.state, [event.target.name]: event.target.value})
+    this.setState({...this.state, [event.target.name]: event.target.value})
   }
 
-  async handleSubmit(event){
-    const {oldPassword, newPassword1, newPassword2} = this.state;
+  async handleSubmit(event) {
+    const {oldPassword, newPassword1, newPassword2} = this.state
     const {email} = this.props
-    if (newPassword1 === newPassword2 && this.validatePassword(newPassword1)){
+    if (newPassword1 === newPassword2 && this.validatePassword(newPassword1)) {
       const postBody = {
         email,
         oldPassword,
-        newPassword: newPassword1,
+        newPassword: newPassword1
       }
       const response = await axios.put('/api/users/edit/password', postBody)
       //TODO: handle error if password does not match oldPassword
@@ -58,7 +64,7 @@ class ChangePassword extends Component {
   }
 
   render() {
-    const {oldPassword, newPassword1, newPassword2} = this.state;
+    const {oldPassword, newPassword1, newPassword2} = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup
@@ -66,34 +72,44 @@ class ChangePassword extends Component {
           validationState={this.getValidationState()}
         >
           <ControlLabel>Retype your current password</ControlLabel>
-          <FormControl
-            type="password"
-            name="oldPassword"
-            placeholder="Enter text"
-            onChange={this.handleChange}
-            value={oldPassword}
-          />
+          <div className="md-form">
+            <FormControl
+              type="password"
+              name="oldPassword"
+              className="form-control"
+              placeholder="Current password"
+              onChange={this.handleChange}
+              value={oldPassword}
+            />
+            <label htmlFor="password" />
+          </div>
           <FormControl.Feedback />
-          <HelpBlock>Password must match your old password</HelpBlock>
-          <input
-            id="newPassword1"
-            name="newPassword1"
-            type="password"
-            label="Enter New Password here"
-            placeholder="password"
-            value={newPassword1}
-            onChange={this.handleChange}
-          />
-          <input
-            id="newPassword2"
-            name="newPassword2"
-            type="password"
-            label="Confirm Password"
-            placeholder="re-type password"
-            value={newPassword2}
-            onChange={this.handleChange}
-          />
-          <Button type="submit">Submit</Button>
+          <br />
+          <div className="md-form">
+            <FormControl
+              type="password"
+              id="newPassword1"
+              name="newPassword1"
+              className="form-control"
+              placeholder="New password"
+              onChange={this.handleChange}
+              value={newPassword1}
+            />
+          </div>
+          <div className="md-form">
+            <FormControl
+              type="password"
+              id="newPassword2"
+              name="newPassword2"
+              className="form-control"
+              placeholder="Confirm new password"
+              onChange={this.handleChange}
+              value={newPassword2}
+            />
+          </div>
+          <Button type="submit" bsStyle="outline-info waves-effect">
+            Save
+          </Button>
         </FormGroup>
       </form>
     )
