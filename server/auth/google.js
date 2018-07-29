@@ -49,9 +49,13 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
   router.get(
     '/callback',
-    passport.authenticate('google', {
-      successRedirect: '/home',
-      failureRedirect: '/login'
-    })
+    passport.authenticate(
+      'google',
+      {scope: 'https://www.googleapis.com/auth/plus.login'},
+      {
+        successRedirect: '/home',
+        failureRedirect: '/login'
+      }
+    )
   )
 }
