@@ -4,6 +4,7 @@ const cartProducts = [
     name: 'air ones',
     price: 100,
     quantity: 2,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   },
   {
@@ -11,6 +12,7 @@ const cartProducts = [
     name: 'Generic Shoes',
     price: 300,
     quantity: 2,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   },
   {
@@ -18,6 +20,7 @@ const cartProducts = [
     name: 'Nikes',
     price: 200,
     quantity: 1,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   }
 ]
@@ -27,6 +30,7 @@ const newProduct = {
   name: 'Clown Shoes',
   price: 150,
   quantity: 1,
+  size: 7,
   picture: './pictures/airJordan.jpg'
 }
 
@@ -36,6 +40,7 @@ const addedCartProducts = [
     name: 'air ones',
     price: 100,
     quantity: 2,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   },
   {
@@ -43,6 +48,7 @@ const addedCartProducts = [
     name: 'Generic Shoes',
     price: 300,
     quantity: 2,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   },
   {
@@ -50,6 +56,7 @@ const addedCartProducts = [
     name: 'Nikes',
     price: 200,
     quantity: 1,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   },
   {
@@ -57,6 +64,7 @@ const addedCartProducts = [
     name: 'Clown Shoes',
     price: 150,
     quantity: 1,
+    size: 7,
     picture: './pictures/airJordan.jpg'
   }
 ]

@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {Jumbotron, Button, ControlLabel, FormControl} from 'react-bootstrap'
+import {Jumbotron, Button} from 'react-bootstrap'
 import {getAllProducts} from '../store/products'
+import {updateCart} from '../store/cart'
+import ProductSelector from './ProductSelector'
 
 class SingleProduct extends Component {
   async componentDidMount() {
@@ -19,59 +21,24 @@ class SingleProduct extends Component {
           <img src={picture} alt="pic" />
           <h1>{name}</h1>
           <h3>Price: {`$` + price}</h3>
-          <div className="mdb-form">
-            <ControlLabel>Quantity</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="1"
-              className="selector"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </FormControl>
-            <button type="submit" className="btn-save btn btn-primary btn-sm">
-              Save
-            </button>
-          </div>
-          <div className="mdb-form">
-            <ControlLabel>Size</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="1"
-              className="selector"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="11">13</option>
-              <option value="12">14</option>
-              <option value="11">15</option>
-              <option value="12">16</option>
-            </FormControl>
-            <button type="submit" className="btn-save btn btn-primary btn-sm">
-              Save
-            </button>
-          </div>
-          <Button bsStyle="success">
+          <ProductSelector
+            name="Quantity"
+            values={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          />
+          <ProductSelector
+            name="Size"
+            values={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}
+          />
+          <Button
+            onClick={event =>
+              editCart(
+                product,
+                event.target.quantity.value,
+                event.target.size.value
+              )
+            }
+            bsStyle="success"
+          >
             <Link to="/cart">Add to Cart</Link>
           </Button>
         </Jumbotron>
@@ -87,7 +54,9 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  loadProducts: () => dispatch(getAllProducts())
+  loadProducts: () => dispatch(getAllProducts()),
+  editCart: (product, quantity, size) =>
+    dispatch(updateCart(product, quantity, size))
 })
 
 export default connect(mapState, mapDispatch)(withRouter(SingleProduct))

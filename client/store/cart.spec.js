@@ -43,14 +43,14 @@ describe('cart thunk creators', () => {
 
 describe('actions', () => {
   it('adds a thing to cart', () => {
-    expect(cartReducer(cartProducts, updateCart(newProduct, 1))).to.deep.equal(
-      addedCartProducts
-    )
+    expect(
+      cartReducer(cartProducts, updateCart(newProduct, 1, 7))
+    ).to.deep.equal(addedCartProducts)
   })
   it('updates quantity correctly', () => {
-    expect(cartReducer(cartProducts, updateCart(newProduct, 1))).to.deep.equal(
-      addedCartProducts
-    )
+    expect(
+      cartReducer(cartProducts, updateCart(newProduct, 1, 7))
+    ).to.deep.equal(addedCartProducts)
   })
   xit('deletes properly', () => {})
 })

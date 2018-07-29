@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 const CartSubtotal = ({subtotal}) => {
   return (
@@ -18,4 +19,13 @@ const CartSubtotal = ({subtotal}) => {
   )
 }
 
-export default CartSubtotal
+const mapState = state => {
+  const subtotal = state.cart.reduce((accum, product) => {
+    return accum + product.price * product.quantity
+  }, 0)
+  return {
+    subtotal
+  }
+}
+
+export default connect(mapState)(CartSubtotal)
