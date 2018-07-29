@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {ControlLabel, FormControl, Image, Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
-import Axios from '../../node_modules/axios'
+import axios from 'axios'
 // import ProductSelector from './ProductSelector'
 
 class ProductCard extends React.Component {
@@ -20,8 +20,8 @@ class ProductCard extends React.Component {
   }
   async componentDidMount() {
     const id = this.props.product.id
-    const {data} = await Axios.get(`/api/products/size/${id}`)
-    const inventory = await Axios.get(`/api/products/quantity/${id}`)
+    const {data} = await axios.get(`/api/products/size/${id}`)
+    const inventory = await axios.get(`/api/products/quantity/${id}`)
     const numberOfShoes = inventory.data
     this.setState({
       size: data,
