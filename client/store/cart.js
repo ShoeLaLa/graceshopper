@@ -5,7 +5,7 @@ import axios from 'axios'
 // ACTION TYPES //
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
-const UPDATE_CART = 'UPDATE_TO_CART'
+const UPDATE_CART = 'UPDATE_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
 
 // ACTION CREATORS //
