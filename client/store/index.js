@@ -7,7 +7,6 @@ import products from './products'
 import sizes from './sizes'
 import inventory from './inventory'
 import {default as cart} from './cart'
-import axios from 'axios'
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -23,15 +22,6 @@ const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
 const store = createStore(persistedReducer, middleware)
-
-// const updateCart = async () => {
-//   const {cart} = store.getState()
-//   if (cart.length !== 0) {
-//     await axios.put('/api/carts', cart)
-//   }
-// }
-
-// store.subscribe(updateCart)
 
 export default store
 export const persistor = persistStore(store)
