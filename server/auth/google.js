@@ -51,7 +51,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     '/callback',
     passport.authenticate(
       'google',
-      {scope: 'https://www.googleapis.com/auth/plus.login'},
+      // {scope: 'https://www.googleapis.com/auth/plus.login'},
       {
         successRedirect: '/home',
         failureRedirect: '/login'
