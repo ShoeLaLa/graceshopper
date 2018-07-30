@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_TO_CART'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 // ACTION CREATORS //
 const getCart = cart => ({
@@ -18,6 +19,11 @@ const clearCart = () => ({
 
 const changeCart = cart => ({
   type: UPDATE_CART,
+  cart
+})
+
+const deleteProduct = cart => ({
+  type: DELETE_ITEM,
   cart
 })
 
@@ -68,6 +74,23 @@ export const addToCartSession = cart => {
   }
 }
 
+export const removeProduct = productId => async dispatch => {
+  try {
+    const res = await axios.get('/api/carts')
+    const currentCart = res.data
+    if (currentCart) {
+      const product = currentCart.find(item => item.id == productId)
+      const indexOfProduct = currentCart.indexOf(product)
+      const newCart = currentCart
+        .slice(0, indexOfProduct)
+        .concat(currentCart.slice(indexOfProduct + 1))
+      dispatch(deleteProduct(newCart))
+    }
+  } catch (error) {
+    console.log('Could not delete product', error)
+  }
+}
+
 // INITIAL STATE //
 const cart = []
 
@@ -78,6 +101,8 @@ const cartReducer = (state = cart, action) => {
     case GET_CART:
       return action.cart
     case UPDATE_CART:
+      return action.cart
+    case DELETE_ITEM:
       return action.cart
     case CLEAR_CART:
       return []

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
+import {removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
   // constructor() {
@@ -52,13 +54,23 @@ class CartProduct extends Component {
           </select>
         </td>
         <td>${product.price * quantity}</td>
+        <td>
+          <Button
+            bsStyle="danger"
+            onClick={() => this.props.removeItem(product.id)}
+          >
+            Remove
+          </Button>
+        </td>
       </tr>
     )
   }
 }
 const mapDispatch = dispatch => ({
   editCart: (product, quantity, size) =>
-    dispatch(updateCart(product, quantity, size))
+    dispatch(updateCart(product, quantity, size)),
+
+  removeItem: id => dispatch(removeProduct(id))
 })
 
 export default connect(null, mapDispatch)(CartProduct)
