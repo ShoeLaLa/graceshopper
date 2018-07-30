@@ -17,22 +17,6 @@ class Cart extends Component {
     await this.props.fetchCart()
   }
 
-  // subTotal = (productId, quantity) => {
-  //   let subtotal = 0
-  //   const cart = this.props.cart
-  //   cart.forEach(product => {
-  //     subtotal += product.price
-  //   })
-  //   // update subtotal if product item quantity is changed //
-
-  //   if (quantity) {
-  //     const product = cart.find(prod => prod.id === productId)
-  //     const prodTotal = product.price * (quantity - product.quantity)
-  //     subtotal += prodTotal
-  //   }
-  //   this.setState({subtotal: subtotal})
-  // }
-
   render() {
     const {subtotal} = this.state
     const cart = this.props.cart

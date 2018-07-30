@@ -6,6 +6,10 @@ import {logout} from '../store'
 import {Button} from 'react-bootstrap'
 import CartButton from './CartButton'
 
+/**
+ * CONTAINER
+ */
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1 className="center">Shoe-LaLa</h1>
@@ -54,6 +58,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 /**
  * CONTAINER
  */
+
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
@@ -73,6 +78,7 @@ export default connect(mapState, mapDispatch)(Navbar)
 /**
  * PROP TYPES
  */
+
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

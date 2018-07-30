@@ -4,21 +4,18 @@ import {connect} from 'react-redux'
 import {Jumbotron} from 'react-bootstrap'
 import ChangePassword from './ChangePassword'
 
-/**
- * COMPONENT
- */
 export const UserHome = props => {
   const {email, username} = props
-  let convertedEmail = '';
-  if(email !== null){
-    convertedEmail= email.split('@')[0]
+  let convertedEmail = ''
+  if (email !== null) {
+    convertedEmail = email.split('@')[0]
   }
 
   return (
     <div>
       <Jumbotron>
         <h3>Welcome, {username ? username : convertedEmail}</h3>
-        {email? <h4> Email: {email}</h4>: <br/>}
+        {email ? <h4> Email: {email}</h4> : <br />}
         <br />
         <h4> Change Password</h4>
         <ChangePassword email={email} />
@@ -27,9 +24,6 @@ export const UserHome = props => {
   )
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     email: state.user.email,
@@ -39,9 +33,6 @@ const mapState = state => {
 
 export default connect(mapState)(UserHome)
 
-/**
- * PROP TYPES
- */
 UserHome.propTypes = {
   email: PropTypes.string
 }

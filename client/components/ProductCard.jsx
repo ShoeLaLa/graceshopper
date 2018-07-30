@@ -3,21 +3,18 @@ import {Link} from 'react-router-dom'
 import {ControlLabel, FormControl, Image, Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import {getSizes, selectSize} from '../store/sizes'
 import {getInventory, setInventory} from '../store/inventory'
-// import ProductSelector from './ProductSelector'
 
 class ProductCard extends React.Component {
-
   constructor() {
     super()
-    this.handleChange= this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.props.getAllSizes(this.props.product.id);
+    this.props.getAllSizes(this.props.product.id)
     this.props.getInventory(this.props.product.id)
   }
 
@@ -28,12 +25,17 @@ class ProductCard extends React.Component {
   }
 
   async handleChange(event) {
-    if(event.target.name == 'size'){
+    if (event.target.name == 'size') {
       await this.props.selectSize(event.target.value)
     }
-    for(let i = 0 ; i<this.props.inventory.inventory.length; i++){
-      if(Number(this.props.sizes.selectedSize) === this.props.inventory.inventory[i].size){
-        await this.props.setInventory(this.props.inventory.inventory[i].inventory)
+    for (let i = 0; i < this.props.inventory.inventory.length; i++) {
+      if (
+        Number(this.props.sizes.selectedSize) ===
+        this.props.inventory.inventory[i].size
+      ) {
+        await this.props.setInventory(
+          this.props.inventory.inventory[i].inventory
+        )
       }
     }
   }
@@ -74,37 +76,42 @@ class ProductCard extends React.Component {
           <div className="mdb-form">
             <ControlLabel>Quantity</ControlLabel>
             <br />
-            {this.props.sizes.selectedSize === 0? <h6> Please select a size </h6>:
-          <h6>{this.props.inventory.inventoryLeft} left! </h6>}
+            {this.props.sizes.selectedSize === 0 ? (
+              <h6> Please select a size </h6>
+            ) : (
+              <h6>{this.props.inventory.inventoryLeft} left! </h6>
+            )}
 
-          {this.props.inventory.inventoryLeft === 0? <h6> SORRY OUT OF STOCK </h6> 
-            : 
-            <FormControl
+            {this.props.inventory.inventoryLeft === 0 ? (
+              <h6> SORRY OUT OF STOCK </h6>
+            ) : (
+              <FormControl
                 componentClass="select"
                 placeholder="Q"
                 className="selector"
                 name="quantity"
               >
                 {this.createOptionQuantity()}
-              </FormControl>}
+              </FormControl>
+            )}
           </div>
           <div className="mdb-form">
             <ControlLabel>Size</ControlLabel>
             <FormControl
-          componentClass="select"
-          placeholder="S"
-          className="selector"
-          name='size'
-          onChange={this.handleChange}
-          >
-          {this.props.sizes.allSizes.map(elem=>{
-            return(
-              <option value={elem} key={elem} name="size">
+              componentClass="select"
+              placeholder="S"
+              className="selector"
+              name="size"
+              onChange={this.handleChange}
+            >
+              {this.props.sizes.allSizes.map(elem => {
+                return (
+                  <option value={elem} key={elem} name="size">
                     {elem}
-              </option>
-            )
-          })}
-          </FormControl>
+                  </option>
+                )
+              })}
+            </FormControl>
             <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
             </button>
@@ -122,7 +129,7 @@ class ProductCard extends React.Component {
   }
 }
 
-const mapState= (state)=>{
+const mapState = state => {
   return {
     products: state.products,
     sizes: state.sizes,
@@ -130,15 +137,14 @@ const mapState= (state)=>{
   }
 }
 
-
 const mapDispatch = dispatch => {
   return {
     editCart: (product, quantity, size) =>
       dispatch(updateCart(product, quantity, size)),
-      getAllSizes: (id)=>dispatch(getSizes(id)),
-      selectSize: (num)=>dispatch(selectSize(num)),
-      getInventory: (id)=>dispatch(getInventory(id)),
-      setInventory: (num)=>dispatch(setInventory(num))
+    getAllSizes: id => dispatch(getSizes(id)),
+    selectSize: num => dispatch(selectSize(num)),
+    getInventory: id => dispatch(getInventory(id)),
+    setInventory: num => dispatch(setInventory(num))
   }
 }
 
