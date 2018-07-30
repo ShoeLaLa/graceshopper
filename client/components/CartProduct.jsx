@@ -1,24 +1,19 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Button} from 'react-bootstrap'
-import {updateCart} from '../store/cart'
-import {removeProduct} from '../store/cart'
+import {updateCart, removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
   constructor() {
     super()
-    //NOTE >> initial quantity should match quantity that was already selected by user << //
     this.onQuantityChange = this.onQuantityChange.bind(this)
   }
-
   onQuantityChange = evt => {
     const cartProduct = this.props.product
     const {size} = cartProduct
     const newQuantity = evt.target.value
     this.props.editCart((cartProduct, newQuantity, size))
   }
-
-  //TODO: Use productSelector
 
   render() {
     const {product} = this.props

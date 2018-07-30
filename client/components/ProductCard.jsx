@@ -3,9 +3,8 @@ import {Link} from 'react-router-dom'
 import {ControlLabel, FormControl, Image, Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
-import {getSizes, selectSize, fetchSizes} from '../store/sizes'
+import {selectSize, fetchSizes} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
-// import ProductSelector from './ProductSelector'
 
 class ProductCard extends React.Component {
   constructor() {
@@ -138,7 +137,6 @@ const mapDispatch = dispatch => {
   return {
     editCart: (product, quantity, size) =>
       dispatch(updateCart(product, quantity, size)),
-
     loadAllSizes: id => dispatch(fetchSizes(id)),
     selectSize: num => dispatch(selectSize(num)),
     loadInventory: id => dispatch(fetchInventory(id)),

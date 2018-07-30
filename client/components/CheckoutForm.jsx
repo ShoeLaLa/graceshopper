@@ -3,6 +3,7 @@ import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import {Button} from 'react-bootstrap'
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this)
   }
 
-  async submit(ev) {
+  async submit(event) {
+    event.preventDefault()
     try {
       const {token} = await this.props.stripe.createToken({name: 'Name'})
       const response = await axios.post('/charge', {
@@ -28,24 +30,16 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
-        <CardElement
-        //   style={{
-        //     base: {
-        //       // Add your base input styles here. For example:
-        //       fontSize: '16px',
-        //       color: '#32325d',
-        //     }
-        //   }}
-        />
-        <button onClick={this.submit}>Send</button>
+        <CardElement />
+        <Button onClick={this.submit}>Send</Button>
       </div>
     )
   }
 }
 
 const mapState = state => {
-  const amount = state.cart.reduce((accum, item) => {
-    return accum + item.price * item.quantity
+  const amount = state.cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity
   }, 0)
   return {
     amount
