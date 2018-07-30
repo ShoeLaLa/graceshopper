@@ -4,6 +4,8 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import products from './products'
+import sizes from './sizes'
+import inventory from './inventory'
 import {default as cart} from './cart'
 import axios from 'axios'
 import {persistStore, persistReducer} from 'redux-persist'
@@ -14,7 +16,7 @@ const persistConfig = {
   storage: storage
 }
 
-const reducer = combineReducers({user, products, cart})
+const reducer = combineReducers({user, products, cart, sizes, inventory})
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 const middleware = composeWithDevTools(
