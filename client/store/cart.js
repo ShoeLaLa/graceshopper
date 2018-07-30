@@ -101,12 +101,12 @@ const cart = []
 
 const cartReducer = (state = cart, action) => {
   switch (action.type) {
-    case GET_CART || UPDATE_CART || DELETE_ITEM:
+    case GET_CART:
       return action.cart
-    // case UPDATE_CART:
-    //   return action.cart
-    // case DELETE_ITEM:
-    //   return action.cart
+    case UPDATE_CART:
+      return action.cart
+    case DELETE_ITEM:
+      return action.cart
     case CLEAR_CART:
       return []
     default:
