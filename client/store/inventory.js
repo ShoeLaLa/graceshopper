@@ -1,35 +1,37 @@
 import axios from 'axios'
 
+//ACTION TYPES
 const GET_INVENTORY = 'GET_INVENTORY'
-const actionCreator = inventory => {
+const SET_INVENTORY = 'SET_INVENTORY'
+
+const getInventory = inventory => {
   return {
     type: GET_INVENTORY,
-    payload: inventory
+    inventory
   }
 }
-export const getInventory = id => {
+export const fetchInventory = id => {
   return async dispatch => {
     const {data} = await axios.get(`/api/products/quantity/${id}`)
-    const action = actionCreator(data)
-    dispatch(action)
+    dispatch(getInventory(data))
   }
 }
 
-const SET_INVENTORY = 'SET_INVENTORY'
 export const setInventory = num => {
   return {
     type: SET_INVENTORY,
-    payload: num
+    num
   }
 }
 
 const initialState = {inventory: [], inventoryLeft: -1}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_INVENTORY:
-      return {...state, inventory: action.payload}
+      return {...state, inventory: action.inventory}
     case SET_INVENTORY:
-      return {...state, inventoryLeft: action.payload}
+      return {...state, inventoryLeft: action.num}
     default:
       return state
   }
