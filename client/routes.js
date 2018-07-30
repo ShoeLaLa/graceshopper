@@ -8,6 +8,8 @@ import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
 import {fetchCart} from './store/cart'
 import Cart from './components/Cart'
+import CheckoutPage from './components/CheckoutPage'
+import SuccessfulPurchase from './components/SuccessfulPurchase'
 
 /**
  * COMPONENT
@@ -27,6 +29,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
+        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/sucessfulPurchase" component={SuccessfulPurchase} />
         <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
@@ -36,7 +40,6 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         <Route path="/" component={Login} />
-        <Route path="/cart" component={Cart} />
       </Switch>
     )
   }

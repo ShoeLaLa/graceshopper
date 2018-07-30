@@ -65,7 +65,9 @@ class Cart extends Component {
             </Link>
           </span>
           <span>
-            <Button style={{marginLeft: '54%'}}>Proceed to checkout</Button>
+            <Link to="/checkout">
+              <Button style={{marginLeft: '54%'}}>Proceed to checkout</Button>
+            </Link>
           </span>
         </div>
       </div>
