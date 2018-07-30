@@ -27,21 +27,24 @@ const deleteProduct = cart => ({
   cart
 })
 
-export const updateCart = (product, quantity, size) => async dispatch => {
+export const updateCart = (product, quantity, size) => async (
+  dispatch,
+  getState
+) => {
   try {
-    const {data} = await axios.get('/api/carts')
-    const theProduct = data.find(cartProduct => {
+    const {cart} = getState()
+    const theProduct = cart.find(cartProduct => {
       return product.id === cartProduct.id
     })
     // if the product exists in the cart
     if (theProduct) {
       theProduct.quantity = quantity
       theProduct.size = size
-      return dispatch(changeCart(data))
+      return dispatch(changeCart(cart))
     } else {
       const newProduct = {...product, quantity, size}
-      data.push(newProduct)
-      return dispatch(changeCart(data))
+      cart.push(newProduct)
+      return dispatch(changeCart(cart))
     }
   } catch (error) {
     console.log(error)
@@ -74,10 +77,10 @@ export const addToCartSession = cart => {
   }
 }
 
-export const removeProduct = productId => async dispatch => {
+export const removeProduct = productId => async (dispatch, getState) => {
   try {
-    const res = await axios.get('/api/carts')
-    const currentCart = res.data
+    const res = getState()
+    const currentCart = res.cart
     if (currentCart) {
       const product = currentCart.find(item => item.id == productId)
       const indexOfProduct = currentCart.indexOf(product)
@@ -98,12 +101,12 @@ const cart = []
 
 const cartReducer = (state = cart, action) => {
   switch (action.type) {
-    case GET_CART:
+    case GET_CART || UPDATE_CART || DELETE_ITEM:
       return action.cart
-    case UPDATE_CART:
-      return action.cart
-    case DELETE_ITEM:
-      return action.cart
+    // case UPDATE_CART:
+    //   return action.cart
+    // case DELETE_ITEM:
+    //   return action.cart
     case CLEAR_CART:
       return []
     default:
