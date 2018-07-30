@@ -6,6 +6,7 @@ const products = []
 const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
 // ACTION CREATORS
+// better variable name
 function actionCreatorForProducts(content) {
   return {
     type: RECEIVE_PRODUCTS,

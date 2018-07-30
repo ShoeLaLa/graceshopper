@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 const GET_INVENTORY = 'GET_INVENTORY'
+// better variable name ("getInventory")
 const actionCreator = (inventory)=>{
     return{
         type: GET_INVENTORY,
         payload: inventory
     }
 }
+
+// better variable name ("fetchInventory")
 export const getInventory=(id)=>{
     return async(dispatch)=>{
         const {data} = await axios.get(`/api/products/quantity/${id}`)

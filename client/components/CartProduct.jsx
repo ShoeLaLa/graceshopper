@@ -5,6 +5,7 @@ import {updateCart} from '../store/cart'
 import {removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
+  // remove dead code
   // constructor() {
   //   super()
   //   //NOTE >> initial state should match quantity that was already selected by user << //
