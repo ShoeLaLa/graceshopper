@@ -21,11 +21,12 @@ router.get('/findAll', async(req,res,next)=>{
   } catch (error) {
     console.log('error on /findAll', error);
     next(error);
-    
+
   }
 })
 
 // GET api/products/
+// get('/:productId/size')
 router.get('/size/:id', async(req,res,next)=>{
   try {
     const product = await Product.findAll({
@@ -43,6 +44,7 @@ router.get('/size/:id', async(req,res,next)=>{
 })
 
 // GET api/products/
+// get('/:productId/quantity')
 router.get('/quantity/:id', async (req, res,next)=>{
   try {
     const product = await Product.findAll({

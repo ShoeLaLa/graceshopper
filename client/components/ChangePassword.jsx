@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+  // remove unused variables
 import {connect} from 'react-redux'
 import {me} from '../store/user'
 import axios from 'axios'
@@ -31,6 +32,7 @@ class ChangePassword extends Component {
   }
 
   getValidationState() {
+    // remove dead code
     // const {newPassword1, newPassword2, error} = this.state
     // if (newPassword1 === newPassword2){
     //   return 'success'

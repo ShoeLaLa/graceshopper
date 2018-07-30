@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 const GET_SIZES = 'GET_SIZES'
+// better variable name ("getSizes")
 const actionCreator = (sizes)=>{
     return{
         type: GET_SIZES,
         payload: sizes
     }
 }
+
+// better variable name ("fetchSizes")
 export const getSizes =  (id)=>{
     return async (dispatch)=>{
         const {data} = await axios.get(`/api/products/size/${id}`)

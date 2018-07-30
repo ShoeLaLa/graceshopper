@@ -5,6 +5,7 @@ import axios from 'axios'
 // ACTION TYPES //
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
+// watch variable names
 const UPDATE_CART = 'UPDATE_TO_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
 
@@ -27,6 +28,7 @@ const deleteProduct = cart => ({
   cart
 })
 
+// move some filtering logic to reducer
 export const updateCart = (product, quantity, size) => async (
   dispatch,
   getState
@@ -63,6 +65,7 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
+// add error handling (try/catch)
 export const wipeCart = () => {
   return async dispatch => {
     await axios.put('/api/carts', [])
@@ -78,6 +81,7 @@ export const addToCartSession = cart => {
 }
 
 export const removeProduct = productId => async (dispatch, getState) => {
+  // use `filter` and move logic for removing an item from the cart on state to reducer
   try {
     const res = getState()
     const currentCart = res.cart

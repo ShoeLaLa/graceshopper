@@ -1,9 +1,11 @@
 import React from 'react'
+// remove unused variables
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Button, Image} from 'react-bootstrap'
+// remove dead code
 // import githubImg from '../images/GitHub-Mark-120px-plus.jpg'
 // import googleImg from '../images/google-button.jpg'
 /**
