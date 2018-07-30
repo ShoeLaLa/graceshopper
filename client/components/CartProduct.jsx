@@ -1,18 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Button} from 'react-bootstrap'
-import {updateCart} from '../store/cart'
-import {removeProduct} from '../store/cart'
+import {updateCart, removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
-  // constructor() {
-  //   super()
-  //   //NOTE >> initial state should match quantity that was already selected by user << //
-  //   this.state = {
-  //     quantity: 1
-  //   }
-  // }
-
   onQuantityChange = evt => {
     //product in cart is not the same as product in database,
     //need to trim off size and quantity
@@ -26,8 +17,6 @@ class CartProduct extends Component {
     console.log(`now quant is`, newQuantity)
     this.props.editCart((product, newQuantity, size))
   }
-
-  //TODO: Use productSelector
 
   render() {
     const {product} = this.props

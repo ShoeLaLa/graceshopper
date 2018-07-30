@@ -1,14 +1,6 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {me} from '../store/user'
 import axios from 'axios'
-import {
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  HelpBlock,
-  Button
-} from 'react-bootstrap'
+import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 
 //TODO: I want user id, but email might be okay
 
@@ -31,14 +23,6 @@ class ChangePassword extends Component {
   }
 
   getValidationState() {
-    // const {newPassword1, newPassword2, error} = this.state
-    // if (newPassword1 === newPassword2){
-    //   return 'success'
-    // } else if (error) {
-    //   return 'error'
-    // } else {
-    //   return null
-    // }
     return 'success'
   }
 
@@ -48,6 +32,7 @@ class ChangePassword extends Component {
   }
 
   async handleSubmit(event) {
+    event.preventDefault()
     const {oldPassword, newPassword1, newPassword2} = this.state
     const {email} = this.props
     if (newPassword1 === newPassword2 && this.validatePassword(newPassword1)) {
@@ -57,7 +42,7 @@ class ChangePassword extends Component {
         newPassword: newPassword1
       }
       const response = await axios.put('/api/users/edit/password', postBody)
-      //TODO: handle error if password does not match oldPassword
+      //handle error if password does not match oldPassword
     } else {
       this.setState({...this.state, error: 'mismatching'})
     }

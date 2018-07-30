@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SuccessfulPurchase = props => {
+const SuccessfulPurchase = () => {
   return <div>Happy!</div>
 }
 
