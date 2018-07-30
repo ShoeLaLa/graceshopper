@@ -28,17 +28,37 @@ async function seed() {
     Product.create({
       name: 'air ones',
       price: 100,
-      picture: '/pictures/airJordan.jpg',
+      picture: '/pictures/airJordan.jpg'
     }),
     Product.create({
       name: 'Kyrie',
       price: 200,
-      picture: '/pictures/footLocker.jpg',
+      picture: '/pictures/footLocker.jpg'
     }),
     Product.create({
       name: 'Clown Shoes',
       price: 150,
-      picture: '/pictures/clown-shoes-red-and-yellow.jpg',
+      picture: '/pictures/clown-shoes-red-and-yellow.jpg'
+    }),
+    Product.create({
+      name: 'DRose',
+      price: 250,
+      picture: '/pictures/drose.jpg'
+    }),
+    Product.create({
+      name: 'Crocs',
+      price: 40,
+      picture: '/pictures/crocs.jpg'
+    }),
+    Product.create({
+      name: 'Flip Flops',
+      price: 250,
+      picture: '/pictures/flipflops.jpg'
+    }),
+    Product.create({
+      name: 'Yeezys',
+      price: 10000,
+      picture: '/pictures/yeezy.jpg'
     })
   ])
   const sizes = await Promise.all([
@@ -136,10 +156,9 @@ async function seed() {
       inventory: 6,
       size: 9,
       productId: 3
-    }),
+    })
   ])
-  
-  
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
