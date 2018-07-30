@@ -4,23 +4,21 @@ import {Button} from 'react-bootstrap'
 import {updateCart, removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
+  constructor() {
+    super()
+    this.onQuantityChange = this.onQuantityChange.bind(this)
+  }
   onQuantityChange = evt => {
-    //product in cart is not the same as product in database,
-    //need to trim off size and quantity
     const cartProduct = this.props.product
     const {size} = cartProduct
-    const product = Object.assign({}, cartProduct)
-    delete product.quantity
-    delete product.size
-    console.log(`now product is`, product)
     const newQuantity = evt.target.value
-    console.log(`now quant is`, newQuantity)
-    this.props.editCart((product, newQuantity, size))
+    this.props.editCart((cartProduct, newQuantity, size))
   }
 
   render() {
     const {product} = this.props
     const quantity = product.quantity
+    const size = product.size
     return (
       <tr>
         <td>
@@ -32,6 +30,7 @@ class CartProduct extends Component {
           </span>
           {product.name}
         </td>
+        <td>{size}</td>
         <td>${product.price}</td>
         <td>
           <select value={quantity} onChange={this.onQuantityChange}>

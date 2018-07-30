@@ -26,9 +26,10 @@ class Cart extends Component {
           <thead style={{fontSize: '0.9em'}}>
             <tr>
               <th width="35%">PRODUCT</th>
-              <th width="20%">PRODUCT PRICE</th>
-              <th width="20%">QUANTITY</th>
-              <th width="20%">PRICE</th>
+              <th width="15%">Size</th>
+              <th width="15%">PRODUCT PRICE</th>
+              <th width="15%">QUANTITY</th>
+              <th width="15%">PRICE</th>
               <th width="5%" />
             </tr>
           </thead>
