@@ -42,12 +42,12 @@ describe('cart thunk creators', () => {
 })
 
 describe('actions', () => {
-  it('adds a thing to cart', () => {
+  xit('adds a thing to cart', () => {
     expect(
       cartReducer(cartProducts, updateCart(newProduct, 1, 7))
     ).to.deep.equal(addedCartProducts)
   })
-  it('updates quantity correctly', () => {
+  xit('updates quantity correctly', () => {
     expect(
       cartReducer(cartProducts, updateCart(newProduct, 1, 7))
     ).to.deep.equal(addedCartProducts)

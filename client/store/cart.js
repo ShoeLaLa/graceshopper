@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_TO_CART'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 // ACTION CREATORS //
 const getCart = cart => ({
@@ -15,12 +16,40 @@ const getCart = cart => ({
 const clearCart = () => ({
   type: CLEAR_CART
 })
-export const updateCart = (product, quantity, size) => ({
+
+const changeCart = cart => ({
   type: UPDATE_CART,
-  product,
-  quantity,
-  size
+  cart
 })
+
+const deleteProduct = cart => ({
+  type: DELETE_ITEM,
+  cart
+})
+
+export const updateCart = (product, quantity, size) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const {cart} = getState()
+    const theProduct = cart.find(cartProduct => {
+      return product.id === cartProduct.id
+    })
+    // if the product exists in the cart
+    if (theProduct) {
+      theProduct.quantity = quantity
+      theProduct.size = size
+      return dispatch(changeCart(cart))
+    } else {
+      const newProduct = {...product, quantity, size}
+      cart.push(newProduct)
+      return dispatch(changeCart(cart))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // THUNK CREATORS //
 
@@ -48,33 +77,36 @@ export const addToCartSession = cart => {
   }
 }
 
+export const removeProduct = productId => async (dispatch, getState) => {
+  try {
+    const res = getState()
+    const currentCart = res.cart
+    if (currentCart) {
+      const product = currentCart.find(item => item.id == productId)
+      const indexOfProduct = currentCart.indexOf(product)
+      const newCart = currentCart
+        .slice(0, indexOfProduct)
+        .concat(currentCart.slice(indexOfProduct + 1))
+      dispatch(deleteProduct(newCart))
+    }
+  } catch (error) {
+    console.log('Could not delete product', error)
+  }
+}
+
 // INITIAL STATE //
 const cart = []
-// what I expect this to look like = [
-// {productId, name, price, quantity, size},
-// {productId, name, price, quantity, size},
-// ...
-// ]
 
 // REDUCER //
 
 const cartReducer = (state = cart, action) => {
   switch (action.type) {
-    case GET_CART:
+    case GET_CART || UPDATE_CART || DELETE_ITEM:
       return action.cart
-    case UPDATE_CART:
-      const {product, quantity, size} = action
-      const theProduct = state.find(cartProduct => {
-        return product.id === cartProduct.id
-      })
-      if (theProduct) {
-        theProduct.quantity = quantity
-        theProduct.size = size
-        return state
-      } else {
-        const newProduct = {...product, quantity, size}
-        return [...state, newProduct]
-      }
+    // case UPDATE_CART:
+    //   return action.cart
+    // case DELETE_ITEM:
+    //   return action.cart
     case CLEAR_CART:
       return []
     default:
