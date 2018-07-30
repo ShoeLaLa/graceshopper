@@ -24,14 +24,14 @@ const middleware = composeWithDevTools(
 )
 const store = createStore(persistedReducer, middleware)
 
-const updateCart = async () => {
-  const {cart} = store.getState()
-  if (cart.length !== 0) {
-    await axios.put('/api/carts', cart)
-  }
-}
+// const updateCart = async () => {
+//   const {cart} = store.getState()
+//   if (cart.length !== 0) {
+//     await axios.put('/api/carts', cart)
+//   }
+// }
 
-store.subscribe(updateCart)
+// store.subscribe(updateCart)
 
 export default store
 export const persistor = persistStore(store)

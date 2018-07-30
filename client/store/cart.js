@@ -4,6 +4,7 @@ import axios from 'axios'
 
 // ACTION TYPES //
 const GET_CART = 'GET_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
@@ -13,6 +14,12 @@ const getCart = cart => ({
   type: GET_CART,
   cart
 })
+
+const addToCart = cart => ({
+  type: ADD_TO_CART,
+  cart
+})
+
 const clearCart = () => ({
   type: CLEAR_CART
 })
@@ -27,27 +34,6 @@ const deleteProduct = cart => ({
   cart
 })
 
-export const updateCart = (product, quantity, size) => (dispatch, getState) => {
-  try {
-    const {cart} = getState()
-    const theProduct = cart.find(cartProduct => {
-      return product.id === cartProduct.id
-    })
-    // if the product exists in the cart
-    if (theProduct) {
-      theProduct.quantity = quantity
-      theProduct.size = size
-      return dispatch(changeCart(cart))
-    } else {
-      const newProduct = {...product, quantity, size}
-      cart.push(newProduct)
-      return dispatch(changeCart(cart))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 // THUNK CREATORS //
 
 export const fetchCart = () => async dispatch => {
@@ -60,34 +46,41 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const wipeCart = () => {
-  return async dispatch => {
-    await axios.put('/api/carts', [])
-    dispatch(clearCart())
-  }
-}
-
-export const addToCartSession = cart => {
-  return async dispatch => {
-    await axios.put('/api/carts', cart)
-    dispatch(getCart(cart))
-  }
-}
-
-export const removeProduct = productId => async (dispatch, getState) => {
+export const addToCartThunk = (product, quantity, size) => async dispatch => {
   try {
-    const res = getState()
-    const currentCart = res.cart
-    if (currentCart) {
-      const product = currentCart.find(item => item.id == productId)
-      const indexOfProduct = currentCart.indexOf(product)
-      const newCart = currentCart
-        .slice(0, indexOfProduct)
-        .concat(currentCart.slice(indexOfProduct + 1))
-      dispatch(deleteProduct(newCart))
-    }
+    const productToAdd = {...product, quantity, size}
+    const {data} = await axios.post(`/api/carts/${product.id}`, productToAdd)
+    return dispatch(addToCart(data))
   } catch (error) {
-    console.log('Could not delete product', error)
+    console.error(error)
+  }
+}
+
+export const updateCart = (product, quantity, size) => async dispatch => {
+  try {
+    const updatedProduct = {...product, quantity, size}
+    const {data} = await axios.put(`/api/carts/${product.id}`, updatedProduct)
+    return dispatch(changeCart(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const wipeCart = () => async dispatch => {
+  try {
+    await axios.delete('/api/carts')
+    return dispatch(clearCart())
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const removeProduct = productId => async dispatch => {
+  try {
+    const cartAfterRemoval = await axios.delete(`/api/carts/${productId}`)
+    return dispatch(deleteProduct(cartAfterRemoval))
+  } catch (error) {
+    console.error('Could not delete product', error)
   }
 }
 
@@ -99,6 +92,8 @@ const cart = []
 const cartReducer = (state = cart, action) => {
   switch (action.type) {
     case GET_CART:
+      return action.cart
+    case ADD_TO_CART:
       return action.cart
     case UPDATE_CART:
       return action.cart
