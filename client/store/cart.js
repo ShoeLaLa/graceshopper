@@ -40,6 +40,7 @@ export const updateCart = (product, quantity, size) => async (
     if (theProduct) {
       theProduct.quantity = quantity
       theProduct.size = size
+      console.log('cart updated successfuly')
       return dispatch(changeCart(cart))
     } else {
       const newProduct = {...product, quantity, size}
