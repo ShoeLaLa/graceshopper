@@ -27,10 +27,7 @@ const deleteProduct = cart => ({
   cart
 })
 
-export const updateCart = (product, quantity, size) => async (
-  dispatch,
-  getState
-) => {
+export const updateCart = (product, quantity, size) => (dispatch, getState) => {
   try {
     const {cart} = getState()
     const theProduct = cart.find(cartProduct => {
