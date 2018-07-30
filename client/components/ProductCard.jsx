@@ -10,11 +10,18 @@ class ProductCard extends React.Component {
   constructor() {
     super()
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getAllSizes(this.props.product.id)
     this.props.getInventory(this.props.product.id)
+  }
+
+  async handleClick(event) {
+    const quantity = this.props.inventory.inventoryLeft
+    const size = this.props.sizes.selectedSize
+    await this.props.editCart(this.props.product, quantity, size)
   }
 
   async handleChange(event) {
@@ -48,11 +55,6 @@ class ProductCard extends React.Component {
   render() {
     const product = this.props.product
     const {id, picture, price, name} = product
-    const handleClick = event => {
-      const quantity = 0 //TODO
-      const size = 0 //TODO
-      this.props.editCart(product, quantity, size)
-    }
     return (
       <div className="card">
         <Link to={`/products/${id}`}>
@@ -114,8 +116,8 @@ class ProductCard extends React.Component {
               Save
             </button>
           </div>
-          <Button onClick={handleClick} bsStyle="success">
-            Add to Cart{' '}
+          <Button onClick={this.handleClick} bsStyle="success">
+            Add to Cart
           </Button>
           <Link to="/">
             <Button bsStyle="primary">Add to Wishlist</Button>
