@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class CheckoutForm extends Component {
         amount: this.props.amount
       })
       console.log('Purchase Complete!')
-      this.props.history.push('/succesfulPurchase')
+      this.props.history.push('/sucessfulPurchase')
     } catch (err) {
       console.error(err)
     }
@@ -51,4 +52,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(injectStripe(CheckoutForm))
+export default connect(mapState)(injectStripe(withRouter(CheckoutForm)))
