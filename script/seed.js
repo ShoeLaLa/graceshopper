@@ -156,6 +156,66 @@ async function seed() {
       inventory: 6,
       size: 9,
       productId: 3
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 7,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 8,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 9,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 7,
+      productId: 5
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 8,
+      productId: 5
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 9,
+      productId: 5
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 7,
+      productId: 6
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 8,
+      productId: 6
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 9,
+      productId: 6
+    }),
+    ProductSize.create({
+      inventory: 1,
+      size: 7,
+      productId: 7
+    }),
+    ProductSize.create({
+      inventory: 2,
+      size: 8,
+      productId: 7
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 9,
+      productId: 7
     })
   ])
 

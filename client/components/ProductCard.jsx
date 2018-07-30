@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom'
 import {ControlLabel, FormControl, Image, Button} from 'react-bootstrap'
 import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
-import {getSizes, selectSize} from '../store/sizes'
-import {getInventory, setInventory} from '../store/inventory'
+import {selectSize, fetchSizes} from '../store/sizes'
+import {fetchInventory, setInventory} from '../store/inventory'
 
 class ProductCard extends React.Component {
   constructor() {
@@ -12,13 +12,13 @@ class ProductCard extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
-
   componentDidMount() {
-    this.props.getAllSizes(this.props.product.id)
-    this.props.getInventory(this.props.product.id)
+    this.props.loadInventory(this.props.product.id)
+    this.props.loadAllSizes(this.props.product.id)
   }
 
   async handleClick(event) {
+    event.preventDefault()
     const quantity = this.props.inventory.inventoryLeft
     const size = this.props.sizes.selectedSize
     await this.props.editCart(this.props.product, quantity, size)
@@ -41,15 +41,11 @@ class ProductCard extends React.Component {
   }
 
   createOptionQuantity() {
-    const result = []
-    for (let i = 1; i < this.props.inventory.inventoryLeft + 1; i++) {
-      result.push(
-        <option value={i} key={i} name="quantity">
-          {i}
-        </option>
-      )
-    }
-    return result
+    return this.props.inventory.inventory.map((item, idx) => (
+      <option value={idx} key={idx} name="quantity">
+        {idx}
+      </option>
+    ))
   }
 
   render() {
@@ -141,9 +137,9 @@ const mapDispatch = dispatch => {
   return {
     editCart: (product, quantity, size) =>
       dispatch(updateCart(product, quantity, size)),
-    getAllSizes: id => dispatch(getSizes(id)),
+    loadAllSizes: id => dispatch(fetchSizes(id)),
     selectSize: num => dispatch(selectSize(num)),
-    getInventory: id => dispatch(getInventory(id)),
+    loadInventory: id => dispatch(fetchInventory(id)),
     setInventory: num => dispatch(setInventory(num))
   }
 }
