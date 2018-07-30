@@ -66,7 +66,7 @@ class SingleProduct extends Component {
                 {this.createOptionQuantity()}
               </FormControl>}
               
-          <ControlLabel>Quantity</ControlLabel>
+          <ControlLabel>Size</ControlLabel>
           <FormControl
           componentClass="select"
           placeholder="S"
