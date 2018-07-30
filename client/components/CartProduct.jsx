@@ -5,26 +5,17 @@ import {updateCart} from '../store/cart'
 import {removeProduct} from '../store/cart'
 
 class CartProduct extends Component {
-  // constructor() {
-  //   super()
-  //   //NOTE >> initial state should match quantity that was already selected by user << //
-  //   this.state = {
-  //     quantity: 1
-  //   }
-  // }
+  constructor() {
+    super()
+    //NOTE >> initial quantity should match quantity that was already selected by user << //
+    this.onQuantityChange = this.onQuantityChange.bind(this)
+  }
 
   onQuantityChange = evt => {
-    //product in cart is not the same as product in database,
-    //need to trim off size and quantity
     const cartProduct = this.props.product
     const {size} = cartProduct
-    const product = Object.assign({}, cartProduct)
-    delete product.quantity
-    delete product.size
-    console.log(`now product is`, product)
     const newQuantity = evt.target.value
-    console.log(`now quant is`, newQuantity)
-    this.props.editCart((product, newQuantity, size))
+    this.props.editCart((cartProduct, newQuantity, size))
   }
 
   //TODO: Use productSelector
@@ -32,6 +23,7 @@ class CartProduct extends Component {
   render() {
     const {product} = this.props
     const quantity = product.quantity
+    const size = product.size
     return (
       <tr>
         <td>
@@ -43,6 +35,7 @@ class CartProduct extends Component {
           </span>
           {product.name}
         </td>
+        <td>{size}</td>
         <td>${product.price}</td>
         <td>
           <select value={quantity} onChange={this.onQuantityChange}>
