@@ -11,15 +11,6 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.post('/:productId', (req, res, next) => {
-  try {
-    req.session.cart.push(req.body)
-    res.send(req.session.cart)
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.put('/:productId', (req, res, next) => {
   try {
     const productToUpdate = req.session.cart.find(
@@ -30,7 +21,8 @@ router.put('/:productId', (req, res, next) => {
       productToUpdate.size = req.body.size
       res.send(req.session.cart)
     } else {
-      next()
+      req.session.cart.push(req.body)
+      res.send(req.session.cart)
     }
   } catch (err) {
     next(err)
@@ -48,10 +40,11 @@ router.delete('/', (req, res, next) => {
 
 router.delete('/:productId', (req, res, next) => {
   try {
-    //TODO replenish inventory by quantity
+    //replenish inventory by quantity
     req.session.cart = req.session.cart.filter(
       prod => prod.id != req.params.productId
     )
+    console.log('session cart', req.session.cart)
     res.send(req.session.cart)
   } catch (error) {
     next(error)
