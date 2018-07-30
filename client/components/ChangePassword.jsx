@@ -118,6 +118,8 @@ class ChangePassword extends Component {
   }
 }
 
+  // remove dead code
+
 // const mapState = state => {
 //   return {user: state.user}
 // }
