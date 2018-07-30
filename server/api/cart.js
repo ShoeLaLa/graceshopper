@@ -11,12 +11,43 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.put('/', (req, res, next) => {
+router.put('/:productId', (req, res, next) => {
   try {
-    req.session.cart = req.body
-    res.json(req.session.cart)
+    const productToUpdate = req.session.cart.find(
+      item => item.id == req.params.productId
+    )
+    if (productToUpdate) {
+      productToUpdate.quantity = req.body.quantity
+      productToUpdate.size = req.body.size
+      res.send(req.session.cart)
+    } else {
+      req.session.cart.push(req.body)
+      res.send(req.session.cart)
+    }
   } catch (err) {
     next(err)
+  }
+})
+
+router.delete('/', (req, res, next) => {
+  try {
+    req.session.cart = []
+    res.send(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:productId', (req, res, next) => {
+  try {
+    //replenish inventory by quantity
+    req.session.cart = req.session.cart.filter(
+      prod => prod.id != req.params.productId
+    )
+    console.log('session cart', req.session.cart)
+    res.send(req.session.cart)
+  } catch (error) {
+    next(error)
   }
 })
 
