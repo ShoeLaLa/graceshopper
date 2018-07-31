@@ -10,7 +10,11 @@ class CartButton extends Component {
   }
 
   render() {
-    let itemCount = this.props.products.length
+    let items = this.props.products
+    let itemCount = items.reduce(
+      (acc, item) => Number(acc) + Number(item.quantity),
+      0
+    )
     const badge = `(${itemCount})`
     return (
       <Link to="/cart">
