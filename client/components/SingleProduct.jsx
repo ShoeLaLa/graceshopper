@@ -4,8 +4,9 @@ import {withRouter, Link} from 'react-router-dom'
 import {Jumbotron, FormControl, Button, ControlLabel} from 'react-bootstrap'
 import {getAllProducts} from '../store/products'
 import {updateCart} from '../store/cart'
-import {getSizes, selectSize} from '../store/sizes'
-import {getInventory, setInventory} from '../store/inventory'
+import ProductSelector from './ProductSelector'
+import {fetchSizes, selectSize} from '../store/sizes'
+import {fetchInventory, setInventory} from '../store/inventory'
 
 class SingleProduct extends Component {
   constructor() {
@@ -14,8 +15,8 @@ class SingleProduct extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllSizes(this.props.match.params.productId)
-    this.props.getInventory(this.props.match.params.productId)
+    this.props.loadAllSizes(this.props.match.params.productId)
+    this.props.loadInventory(this.props.match.params.productId)
   }
 
   async handleChange(event) {
@@ -34,15 +35,15 @@ class SingleProduct extends Component {
     }
   }
   createOptionQuantity() {
-    const result = []
-    for (let i = 1; i < this.props.inventory.inventoryLeft + 1; i++) {
-      result.push(
+    const finallArr = []
+    for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
+      finallArr.push(
         <option value={i} key={i} name="quantity">
           {i}
         </option>
       )
     }
-    return result
+    return finallArr
   }
 
   render() {
@@ -121,9 +122,9 @@ const mapDispatch = dispatch => ({
   loadProducts: () => dispatch(getAllProducts()),
   editCart: (product, quantity, size) =>
     dispatch(updateCart(product, quantity, size)),
-  getAllSizes: id => dispatch(getSizes(id)),
+  loadAllSizes: id => dispatch(fetchSizes(id)),
   selectSize: num => dispatch(selectSize(num)),
-  getInventory: id => dispatch(getInventory(id)),
+  loadInventory: id => dispatch(fetchInventory(id)),
   setInventory: num => dispatch(setInventory(num))
 })
 

@@ -41,11 +41,15 @@ class ProductCard extends React.Component {
   }
 
   createOptionQuantity() {
-    return this.props.inventory.inventory.map((item, idx) => (
-      <option value={idx} key={idx} name="quantity">
-        {idx}
-      </option>
-    ))
+    const result = []
+    for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
+      result.push(
+        <option value={i} key={i} name="quantity">
+          {i}
+        </option>
+      )
+    }
+    return result
   }
 
   render() {

@@ -158,6 +158,21 @@ async function seed() {
       productId: 3
     }),
     ProductSize.create({
+      inventory: 6,
+      size: 10,
+      productId: 3
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 3
+    }),
+    ProductSize.create({
+      inventory: 0,
+      size: 12,
+      productId: 3
+    }),
+    ProductSize.create({
       inventory: 1,
       size: 7,
       productId: 4
@@ -170,6 +185,21 @@ async function seed() {
     ProductSize.create({
       inventory: 6,
       size: 9,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 10,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 4
+    }),
+    ProductSize.create({
+      inventory: 0,
+      size: 12,
       productId: 4
     }),
     ProductSize.create({
@@ -188,6 +218,21 @@ async function seed() {
       productId: 5
     }),
     ProductSize.create({
+      inventory: 6,
+      size: 10,
+      productId: 5
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 5
+    }),
+    ProductSize.create({
+      inventory: 0,
+      size: 12,
+      productId: 5
+    }),
+    ProductSize.create({
       inventory: 1,
       size: 7,
       productId: 6
@@ -203,6 +248,21 @@ async function seed() {
       productId: 6
     }),
     ProductSize.create({
+      inventory: 6,
+      size: 10,
+      productId: 6
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 6
+    }),
+    ProductSize.create({
+      inventory: 0,
+      size: 12,
+      productId: 6
+    }),
+    ProductSize.create({
       inventory: 1,
       size: 7,
       productId: 7
@@ -216,7 +276,22 @@ async function seed() {
       inventory: 6,
       size: 9,
       productId: 7
-    })
+    }),
+    ProductSize.create({
+      inventory: 6,
+      size: 10,
+      productId: 7
+    }),
+    ProductSize.create({
+      inventory: 3,
+      size: 11,
+      productId: 7
+    }),
+    ProductSize.create({
+      inventory: 0,
+      size: 12,
+      productId: 7
+    }),
   ])
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
