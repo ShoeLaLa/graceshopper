@@ -83,11 +83,3 @@ const mapDispatch = dispatch => ({
 })
 
 export default connect(mapState, mapDispatch)(CartProduct)
-
-/* {
-  [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-    <option value={num} key={num}>
-      {num}
-    </option>
-  ))
-} */
