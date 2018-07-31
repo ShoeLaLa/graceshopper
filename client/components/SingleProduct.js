@@ -61,7 +61,7 @@ class SingleProduct extends Component {
     const {name, price, picture} = product
     return (
       <div>
-        <Jumbotron>
+        <Jumbotron className="mdb-form">
           <img src={picture} alt="pic" />
           <h1>{name}</h1>
           <h3>Price: {`$` + price}</h3>
@@ -103,18 +103,20 @@ class SingleProduct extends Component {
               )
             })}
           </FormControl>
-          <Button
-            onClick={() =>
-              this.props.updateCart(
-                product,
-                this.state.quantity,
-                Number(this.props.sizes.selectedSize)
-              )
-            }
-            bsStyle="success"
-          >
-            <Link to="/cart">Add to Cart</Link>
-          </Button>
+          <Link to="/cart">
+            <Button
+              onClick={() =>
+                this.props.updateCart(
+                  product,
+                  this.state.quantity,
+                  Number(this.props.sizes.selectedSize)
+                )
+              }
+              bsStyle="success"
+            >
+              Add to Cart
+            </Button>
+          </Link>
         </Jumbotron>
       </div>
     )
