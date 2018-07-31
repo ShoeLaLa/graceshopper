@@ -4,14 +4,16 @@ import {withRouter, Link} from 'react-router-dom'
 import {Jumbotron, FormControl, Button, ControlLabel} from 'react-bootstrap'
 import {getAllProducts} from '../store/products'
 import {updateCart} from '../store/cart'
-import ProductSelector from './ProductSelector'
+import {setQuantity} from '../store/quantity'
 import {fetchSizes, selectSize} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
+
 
 class SingleProduct extends Component {
   constructor() {
     super()
-    this.handleChange = this.handleChange.bind(this)
+    this.handleSizeChange = this.handleSizeChange.bind(this)
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
   }
 
   componentDidMount() {
@@ -19,7 +21,7 @@ class SingleProduct extends Component {
     this.props.loadInventory(this.props.match.params.productId)
   }
 
-  async handleChange(event) {
+  async handleSizeChange(event) {
     if (event.target.name == 'size') {
       await this.props.selectSize(event.target.value)
     }
@@ -34,6 +36,11 @@ class SingleProduct extends Component {
       }
     }
   }
+
+  handleQuantityChange(event) {
+    this.props.setQuantity(event.target.value)
+  }
+
   createOptionQuantity() {
     const finallArr = []
     for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
@@ -71,6 +78,8 @@ class SingleProduct extends Component {
               placeholder="Q"
               className="selector"
               name="quantity"
+              value={this.props.quantity}
+              onChange={this.handleQuantityChange}
             >
               {this.createOptionQuantity()}
             </FormControl>
@@ -82,7 +91,7 @@ class SingleProduct extends Component {
             placeholder="S"
             className="selector"
             name="size"
-            onChange={this.handleChange}
+            onChange={this.handleSizeChange}
           >
             {this.props.sizes.allSizes.map(elem => {
               return (
@@ -93,11 +102,11 @@ class SingleProduct extends Component {
             })}
           </FormControl>
           <Button
-            onClick={event =>
-              editCart(
+            onClick={() =>
+              this.props.updateCart(
                 product,
-                event.target.quantity.value,
-                event.target.size.value
+                this.props.quantity,
+                Number(this.props.sizes.selectedSize)
               )
             }
             bsStyle="success"
@@ -114,16 +123,18 @@ const mapState = state => {
   return {
     products: state.products,
     sizes: state.sizes,
-    inventory: state.inventory
+    inventory: state.inventory,
+    quantity: state.quantity
   }
 }
 
 const mapDispatch = dispatch => ({
   loadProducts: () => dispatch(getAllProducts()),
-  editCart: (product, quantity, size) =>
+  updateCart: (product, quantity, size) =>
     dispatch(updateCart(product, quantity, size)),
   loadAllSizes: id => dispatch(fetchSizes(id)),
   selectSize: num => dispatch(selectSize(num)),
+  setQuantity: quantity => dispatch(setQuantity(quantity)),
   loadInventory: id => dispatch(fetchInventory(id)),
   setInventory: num => dispatch(setInventory(num))
 })
