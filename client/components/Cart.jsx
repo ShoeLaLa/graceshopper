@@ -14,22 +14,6 @@ class Cart extends Component {
     }
   }
 
-  // subTotal = (productId, quantity) => {
-  //   let subtotal = 0
-  //   const cart = this.props.cart
-  //   cart.forEach(product => {
-  //     subtotal += product.price
-  //   })
-  //   // update subtotal if product item quantity is changed //
-
-  //   if (quantity) {
-  //     const product = cart.find(prod => prod.id === productId)
-  //     const prodTotal = product.price * (quantity - product.quantity)
-  //     subtotal += prodTotal
-  //   }
-  //   this.setState({subtotal: subtotal})
-  // }
-
   render() {
     const {subtotal} = this.state
     const cart = this.props.cart
@@ -40,9 +24,10 @@ class Cart extends Component {
           <thead style={{fontSize: '0.9em'}}>
             <tr>
               <th width="35%">PRODUCT</th>
-              <th width="20%">PRODUCT PRICE</th>
-              <th width="20%">QUANTITY</th>
-              <th width="20%">PRICE</th>
+              <th width="15%">Size</th>
+              <th width="15%">PRODUCT PRICE</th>
+              <th width="15%">QUANTITY</th>
+              <th width="15%">PRICE</th>
               <th width="5%" />
             </tr>
           </thead>

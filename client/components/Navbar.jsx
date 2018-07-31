@@ -4,6 +4,11 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Button} from 'react-bootstrap'
+import CartButton from './CartButton'
+
+/**
+ * CONTAINER
+ */
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -26,9 +31,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Button bsStyle="info">All Shoes</Button>
           </Link>
 
-          <Link to="/cart">
-            <Button bsStyle="default">My Cart</Button>
-          </Link>
+          <CartButton />
         </div>
       ) : (
         <div>
@@ -44,9 +47,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Button bsStyle="info">All Shoes</Button>
           </Link>
 
-          <Link to="/cart">
-            <Button bsStyle="default">My Cart</Button>
-          </Link>
+          <CartButton />
         </div>
       )}
     </nav>
@@ -57,6 +58,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 /**
  * CONTAINER
  */
+
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
@@ -76,6 +78,7 @@ export default connect(mapState, mapDispatch)(Navbar)
 /**
  * PROP TYPES
  */
+
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

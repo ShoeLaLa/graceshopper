@@ -1,14 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-import {Button, Image} from 'react-bootstrap'
-// import githubImg from '../images/GitHub-Mark-120px-plus.jpg'
-// import googleImg from '../images/google-button.jpg'
+import {Button} from 'react-bootstrap'
+
 /**
  * COMPONENT
  */
+
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
@@ -58,11 +57,8 @@ const AuthForm = props => {
 
 /**
  * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
  */
+
 const mapLogin = state => {
   return {
     name: 'login',
@@ -97,6 +93,7 @@ export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 /**
  * PROP TYPES
  */
+
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,

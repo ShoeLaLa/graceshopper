@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import React from 'react'
 import {getAllProducts} from '../store/products'
-import {Link, Route} from 'react-router-dom'
 import ProductCard from './ProductCard'
 
 class allProducts extends React.Component {
