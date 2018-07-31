@@ -1,4 +1,7 @@
 const router = require('express').Router()
+const {
+  ProductSize
+} = require('../db/models/index')
 
 router.get('/', (req, res, next) => {
   try {
@@ -11,7 +14,7 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.put('/:productId', (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   try {
     const productToUpdate = req.session.cart.find(
       item => item.id == req.params.productId
@@ -19,6 +22,16 @@ router.put('/:productId', (req, res, next) => {
     if (productToUpdate) {
       productToUpdate.quantity = req.body.quantity
       productToUpdate.size = req.body.size
+      const productSize = await ProductSize.findOne({
+        where: {
+          productId: req.params.productId,
+          size: req.body.size
+        }
+      })
+      const inventoryLeft = productSize.dataValues.inventory - req.body.quantity
+      const updated = await productSize.update({
+        inventory: inventoryLeft
+      })
       res.send(req.session.cart)
     } else {
       req.session.cart.push(req.body)
