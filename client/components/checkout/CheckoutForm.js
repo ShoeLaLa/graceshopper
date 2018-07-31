@@ -25,10 +25,13 @@ class CheckoutForm extends Component {
       const {token} = await this.props.stripe.createToken({
         name: this.state.name
       })
-      await axios.post('/charge', {
-        token: token.id,
-        amount: this.props.amount
-      })
+      await Promise.all([
+        axios.post('/api/charge', {
+          token: token.id,
+          amount: this.props.amount
+        }),
+        axios.post('/api/order', this.props.cart)
+      ])
       this.props.history.push('/sucessfulPurchase')
     } catch (err) {
       console.error(err)
@@ -51,7 +54,8 @@ const mapState = state => {
     return acc + item.price * item.quantity
   }, 0)
   return {
-    amount
+    amount,
+    cart: state.cart
   }
 }
 
