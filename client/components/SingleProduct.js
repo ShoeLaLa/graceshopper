@@ -105,12 +105,17 @@ class SingleProduct extends Component {
           </FormControl>
           <Link to="/cart">
             <Button
-              onClick={() =>
+              onClick={async () =>{
                 this.props.updateCart(
                   product,
                   this.state.quantity,
                   Number(this.props.sizes.selectedSize)
                 )
+                const num = this.props.inventory.inventoryLeft - this.state.quantity
+                await this.props.loadInventory(this.props.product.id);
+                await this.props.setInventory(num)
+
+              }
               }
               bsStyle="success"
             >
