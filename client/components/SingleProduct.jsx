@@ -35,15 +35,15 @@ class SingleProduct extends Component {
     }
   }
   createOptionQuantity() {
-    const res = []
+    const finallArr = []
     for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
-      res.push(
+      finallArr.push(
         <option value={i} key={i} name="quantity">
           {i}
         </option>
       )
     }
-    return res
+    return finallArr
   }
 
   render() {
