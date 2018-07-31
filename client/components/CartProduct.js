@@ -2,16 +2,28 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Button} from 'react-bootstrap'
 import {updateCart, removeProduct} from '../store/cart'
+import {createOptionQuantity} from './SingleProduct'
 
 class CartProduct extends Component {
   constructor() {
     super()
+    this.state = {quantity: 1}
     this.onQuantityChange = this.onQuantityChange.bind(this)
+    this.handleQuantityConfirm = this.handleQuantityConfirm.bind(this)
   }
+
+  componentDidMount() {
+    this.setState({quantity: this.props.product.quantity})
+  }
+
   onQuantityChange = evt => {
+    this.setState({quantity: evt.target.value})
+  }
+
+  handleQuantityConfirm = () => {
     const cartProduct = this.props.product
     const {size} = cartProduct
-    const newQuantity = evt.target.value
+    const newQuantity = this.state.quantity
     this.props.editCart(cartProduct, newQuantity, size)
   }
 
@@ -33,27 +45,36 @@ class CartProduct extends Component {
         <td>{size}</td>
         <td>${product.price}</td>
         <td>
-          <select value={quantity} onChange={this.onQuantityChange}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-              <option value={num} key={num}>
-                {num}
-              </option>
-            ))}
+          <select value={this.state.quantity} onChange={this.onQuantityChange}>
+            {createOptionQuantity(this.props.inventory)}
           </select>
+          <button
+            type="button"
+            className="btn btn-outline-info btn-sm"
+            onClick={this.handleQuantityConfirm}
+          >
+            Confirm
+          </button>
         </td>
         <td>${product.price * quantity}</td>
         <td>
-          <Button
-            bsStyle="danger"
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-sm"
             onClick={() => this.props.removeItem(product.id)}
           >
             Remove
-          </Button>
+          </button>
         </td>
       </tr>
     )
   }
 }
+
+const mapState = state => ({
+  inventory: state.inventory
+})
+
 const mapDispatch = dispatch => ({
   editCart: (product, quantity, size) =>
     dispatch(updateCart(product, quantity, size)),
@@ -61,4 +82,12 @@ const mapDispatch = dispatch => ({
   removeItem: id => dispatch(removeProduct(id))
 })
 
-export default connect(null, mapDispatch)(CartProduct)
+export default connect(mapState, mapDispatch)(CartProduct)
+
+/* {
+  [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+    <option value={num} key={num}>
+      {num}
+    </option>
+  ))
+} */

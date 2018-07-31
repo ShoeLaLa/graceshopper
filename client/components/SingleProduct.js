@@ -8,6 +8,20 @@ import {setQuantity} from '../store/quantity'
 import {fetchSizes, selectSize} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
 
+export function createOptionQuantity(inventory) {
+  const finallArr = []
+  if (inventory) {
+    for (let i = 0; i < inventory.inventoryLeft + 1; i++) {
+      finallArr.push(
+        <option value={i} key={i} name="quantity">
+          {i}
+        </option>
+      )
+    }
+  }
+  return finallArr
+}
+
 class SingleProduct extends Component {
   constructor() {
     super()
@@ -43,18 +57,6 @@ class SingleProduct extends Component {
     this.setState({quantity: event.target.value})
   }
 
-  createOptionQuantity() {
-    const finallArr = []
-    for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
-      finallArr.push(
-        <option value={i} key={i} name="quantity">
-          {i}
-        </option>
-      )
-    }
-    return finallArr
-  }
-
   render() {
     const id = this.props.match.params.productId
     const product = this.props.products.find(item => item.id == id)
@@ -83,7 +85,7 @@ class SingleProduct extends Component {
               value={this.state.quantity}
               onChange={this.handleQuantityChange}
             >
-              {this.createOptionQuantity()}
+              {createOptionQuantity(this.props.inventory)}
             </FormControl>
           )}
 

@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {selectSize, fetchSizes} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
 import {setQuantity} from '../store/quantity'
+import {createOptionQuantity} from './SingleProduct'
 
 class ProductCard extends React.Component {
   constructor() {
@@ -50,18 +51,6 @@ class ProductCard extends React.Component {
     this.setState({quantity: event.target.value})
   }
 
-  createOptionQuantity() {
-    const result = []
-    for (let i = 0; i < this.props.inventory.inventoryLeft + 1; i++) {
-      result.push(
-        <option value={i} key={i} name="quantity">
-          {i}
-        </option>
-      )
-    }
-    return result
-  }
-
   render() {
     const product = this.props.product
     const {id, picture, price, name} = product
@@ -103,7 +92,7 @@ class ProductCard extends React.Component {
                 value={this.state.quantity}
                 onChange={this.handleQuantityChange}
               >
-                {this.createOptionQuantity()}
+                {createOptionQuantity(this.props.inventory)}
               </FormControl>
             )}
           </div>
