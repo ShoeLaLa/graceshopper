@@ -29,7 +29,6 @@ router.put('/:productId', async (req, res, next) => {
         }
       })
       const inventoryLeft = productSize.dataValues.inventory - req.body.quantity
-      console.log(productSize)
       const updated = await productSize.update({
         inventory: inventoryLeft
       })
