@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {selectSize, fetchSizes} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
 import {setQuantity} from '../store/quantity'
-import {createOptionQuantity} from './SingleProduct'
+import {createOptionQuantity} from './CreateSizeOptionQuantity'
 
 class ProductCard extends React.Component {
   constructor() {

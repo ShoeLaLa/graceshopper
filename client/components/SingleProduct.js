@@ -7,20 +7,7 @@ import {updateCart} from '../store/cart'
 import {setQuantity} from '../store/quantity'
 import {fetchSizes, selectSize} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
-
-export function createOptionQuantity(inventory) {
-  const finallArr = []
-  if (inventory) {
-    for (let i = 0; i < inventory.inventoryLeft + 1; i++) {
-      finallArr.push(
-        <option value={i} key={i} name="quantity">
-          {i}
-        </option>
-      )
-    }
-  }
-  return finallArr
-}
+import {createOptionQuantity} from './CreateSizeOptionQuantity'
 
 class SingleProduct extends Component {
   constructor() {

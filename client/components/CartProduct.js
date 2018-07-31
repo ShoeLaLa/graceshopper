@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Button} from 'react-bootstrap'
 import {updateCart, removeProduct} from '../store/cart'
-import {createOptionQuantity} from './SingleProduct'
+import {createOptionQuantity} from './CreateSizeOptionQuantity'
+import {fetchInventory} from '../store/inventory'
 
 class CartProduct extends Component {
   constructor() {
@@ -13,7 +13,8 @@ class CartProduct extends Component {
   }
 
   componentDidMount() {
-    this.setState({quantity: this.props.product.quantity})
+    const {product} = this.props
+    this.setState({quantity: product.quantity})
   }
 
   onQuantityChange = evt => {
@@ -28,6 +29,7 @@ class CartProduct extends Component {
   }
 
   render() {
+    console.log(this.props.inventory)
     const {product} = this.props
     const quantity = product.quantity
     const size = product.size
@@ -78,8 +80,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   editCart: (product, quantity, size) =>
     dispatch(updateCart(product, quantity, size)),
-
-  removeItem: id => dispatch(removeProduct(id))
+  removeItem: id => dispatch(removeProduct(id)),
+  loadInventory: id => dispatch(fetchInventory(id))
 })
 
 export default connect(mapState, mapDispatch)(CartProduct)

@@ -23,9 +23,9 @@ class Cart extends Component {
             </tr>
           </thead>
           <tbody>
-            {cart.map(product => (
-              <CartProduct key={product.id} product={product} />
-            ))}
+            {cart.map(product => {
+              return <CartProduct key={product.id} product={product} />
+            })}
             <CartSubtotal />
           </tbody>
         </Table>
@@ -50,7 +50,8 @@ class Cart extends Component {
 }
 
 const mapState = state => ({
-  cart: state.cart
+  cart: state.cart,
+  inventory: state.inventory
 })
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchCart())
