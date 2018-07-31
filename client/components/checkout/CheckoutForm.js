@@ -30,7 +30,11 @@ class CheckoutForm extends Component {
           token: token.id,
           amount: this.props.amount
         }),
-        axios.post('/api/order', this.props.cart)
+        axios.post('/api/order', {
+          password: process.env.ORDER_SECRET,
+          name: this.state.name,
+          cart: this.props.cart
+        })
       ])
       this.props.history.push('/sucessfulPurchase')
     } catch (err) {
