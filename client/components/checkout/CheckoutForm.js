@@ -1,20 +1,30 @@
 import React, {Component} from 'react'
-import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
+import {injectStripe} from 'react-stripe-elements'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {Button} from 'react-bootstrap'
+import CheckoutFormPresentation from './CheckoutFormPresentation'
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      name: ''
+    }
     this.submit = this.submit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({name: event.target.value})
   }
 
   async submit(event) {
     event.preventDefault()
     try {
-      const {token} = await this.props.stripe.createToken({name: 'Name'})
+      const {token} = await this.props.stripe.createToken({
+        name: this.state.name
+      })
       await axios.post('/charge', {
         token: token.id,
         amount: this.props.amount
@@ -27,11 +37,11 @@ class CheckoutForm extends Component {
 
   render() {
     return (
-      <div className="checkout">
-        <CardElement />
-        <p>Would you like to complete the purchase?</p>
-        <Button onClick={this.submit}>Send</Button>
-      </div>
+      <CheckoutFormPresentation
+        submit={this.submit}
+        name={this.state.name}
+        handleChange={this.handleChange}
+      />
     )
   }
 }
