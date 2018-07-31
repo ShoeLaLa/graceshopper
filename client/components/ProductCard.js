@@ -28,6 +28,9 @@ class ProductCard extends React.Component {
     const {quantity} = this.state
     const size = this.props.sizes.selectedSize
     await this.props.editCart(this.props.product, quantity, size)
+    const num = this.props.inventory.inventoryLeft - quantity
+    await this.props.loadInventory(this.props.product.id);
+    await this.props.setInventory(num)
   }
 
   async handleSizeChange(event) {
