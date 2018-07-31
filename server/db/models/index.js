@@ -2,6 +2,7 @@ const User = require('./user')
 const Product = require('./products')
 const Cart = require('./cart')
 const Size = require('./size')
+const Order = require('./order')
 const db = require('../db')
 const Sequelize = require('sequelize')
 
@@ -23,9 +24,10 @@ const ProductSize = db.define('productSize', {
   }
 })
 
-Size.belongsToMany(Product, {through: ProductSize, foreignKey: 'size'});
+Size.belongsToMany(Product, {through: ProductSize, foreignKey: 'size'})
 Product.belongsToMany(Size, {through: ProductSize})
 
+Order.belongsTo(ProductSize)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -36,7 +38,8 @@ Product.belongsToMany(Size, {through: ProductSize})
 module.exports = {
   User,
   Product,
-  Cart, 
+  Cart,
   Size,
-  ProductSize
+  ProductSize,
+  Order
 }
