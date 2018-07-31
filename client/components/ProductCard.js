@@ -5,13 +5,19 @@ import {updateCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {selectSize, fetchSizes} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
+import {setQuantity} from '../store/quantity'
 
 class ProductCard extends React.Component {
   constructor() {
     super()
-    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      quantity: 1
+    }
+    this.handleSizeChange = this.handleSizeChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
   }
+
   componentDidMount() {
     this.props.loadInventory(this.props.product.id)
     this.props.loadAllSizes(this.props.product.id)
@@ -19,12 +25,12 @@ class ProductCard extends React.Component {
 
   async handleClick(event) {
     event.preventDefault()
-    const quantity = this.props.inventory.inventoryLeft
+    const {quantity} = this.state
     const size = this.props.sizes.selectedSize
     await this.props.editCart(this.props.product, quantity, size)
   }
 
-  async handleChange(event) {
+  async handleSizeChange(event) {
     if (event.target.name == 'size') {
       await this.props.selectSize(event.target.value)
     }
@@ -38,6 +44,10 @@ class ProductCard extends React.Component {
         )
       }
     }
+  }
+
+  handleQuantityChange(event) {
+    this.setState({quantity: event.target.value})
   }
 
   createOptionQuantity() {
@@ -90,6 +100,8 @@ class ProductCard extends React.Component {
                 placeholder="Q"
                 className="selector"
                 name="quantity"
+                value={this.state.quantity}
+                onChange={this.handleQuantityChange}
               >
                 {this.createOptionQuantity()}
               </FormControl>
@@ -102,7 +114,7 @@ class ProductCard extends React.Component {
               placeholder="S"
               className="selector"
               name="size"
-              onChange={this.handleChange}
+              onChange={this.handleSizeChange}
             >
               {this.props.sizes.allSizes.map(elem => {
                 return (
@@ -144,7 +156,8 @@ const mapDispatch = dispatch => {
     loadAllSizes: id => dispatch(fetchSizes(id)),
     selectSize: num => dispatch(selectSize(num)),
     loadInventory: id => dispatch(fetchInventory(id)),
-    setInventory: num => dispatch(setInventory(num))
+    setInventory: num => dispatch(setInventory(num)),
+    setQuantity: quant => dispatch(setQuantity(quant))
   }
 }
 

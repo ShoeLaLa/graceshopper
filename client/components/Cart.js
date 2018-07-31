@@ -7,17 +7,8 @@ import CartProduct from './CartProduct'
 import CartSubtotal from './CartSubtotal'
 
 class Cart extends Component {
-  constructor() {
-    super()
-    this.state = {
-      subtotal: 0
-    }
-  }
-
   render() {
-    const {subtotal} = this.state
     const cart = this.props.cart
-    console.log('CART', cart)
     return (
       <div>
         <Table>
