@@ -6,7 +6,6 @@ import user from './user'
 import products from './products'
 import sizes from './sizes'
 import inventory from './inventory'
-import quantity from './quantity'
 import {default as cart} from './cart'
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -21,8 +20,7 @@ const reducer = combineReducers({
   products,
   cart,
   sizes,
-  inventory,
-  quantity
+  inventory
 })
 const persistedReducer = persistReducer(persistConfig, reducer)
 
