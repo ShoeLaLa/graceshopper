@@ -11,7 +11,6 @@ class CartButton extends Component {
 
   render() {
     let items = this.props.products
-    console.log('items', items)
     let itemCount = items.reduce(
       (acc, item) => Number(acc) + Number(item.quantity),
       0
