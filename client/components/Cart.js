@@ -15,7 +15,7 @@ class Cart extends Component {
           <thead style={{fontSize: '0.9em'}}>
             <tr>
               <th width="35%">PRODUCT</th>
-              <th width="15%">Size</th>
+              <th width="15%">SIZE</th>
               <th width="15%">PRODUCT PRICE</th>
               <th width="15%">QUANTITY</th>
               <th width="15%">PRICE</th>
@@ -23,9 +23,9 @@ class Cart extends Component {
             </tr>
           </thead>
           <tbody>
-            {cart.map(product => (
-              <CartProduct key={product.id} product={product} />
-            ))}
+            {cart.map(product => {
+              return <CartProduct key={product.id} product={product} />
+            })}
             <CartSubtotal />
           </tbody>
         </Table>
@@ -50,7 +50,8 @@ class Cart extends Component {
 }
 
 const mapState = state => ({
-  cart: state.cart
+  cart: state.cart,
+  inventory: state.inventory
 })
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchCart())
