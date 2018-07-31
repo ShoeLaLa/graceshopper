@@ -8,10 +8,12 @@ import {setQuantity} from '../store/quantity'
 import {fetchSizes, selectSize} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
 
-
 class SingleProduct extends Component {
   constructor() {
     super()
+    this.state = {
+      quantity: 1
+    }
     this.handleSizeChange = this.handleSizeChange.bind(this)
     this.handleQuantityChange = this.handleQuantityChange.bind(this)
   }
@@ -38,7 +40,7 @@ class SingleProduct extends Component {
   }
 
   handleQuantityChange(event) {
-    this.props.setQuantity(event.target.value)
+    this.setState({quantity: event.target.value})
   }
 
   createOptionQuantity() {
@@ -78,7 +80,7 @@ class SingleProduct extends Component {
               placeholder="Q"
               className="selector"
               name="quantity"
-              value={this.props.quantity}
+              value={this.state.quantity}
               onChange={this.handleQuantityChange}
             >
               {this.createOptionQuantity()}
@@ -105,7 +107,7 @@ class SingleProduct extends Component {
             onClick={() =>
               this.props.updateCart(
                 product,
-                this.props.quantity,
+                this.state.quantity,
                 Number(this.props.sizes.selectedSize)
               )
             }

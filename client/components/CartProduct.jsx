@@ -12,7 +12,7 @@ class CartProduct extends Component {
     const cartProduct = this.props.product
     const {size} = cartProduct
     const newQuantity = evt.target.value
-    this.props.editCart((cartProduct, newQuantity, size))
+    this.props.editCart(cartProduct, newQuantity, size)
   }
 
   render() {
