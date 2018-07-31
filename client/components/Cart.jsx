@@ -13,13 +13,11 @@ class Cart extends Component {
       subtotal: 0
     }
   }
-  async componentDidMount() {
-    await this.props.fetchCart()
-  }
 
   render() {
     const {subtotal} = this.state
     const cart = this.props.cart
+    console.log('CART', cart)
     return (
       <div>
         <Table>
