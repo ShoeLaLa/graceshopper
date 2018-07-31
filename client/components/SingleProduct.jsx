@@ -4,10 +4,8 @@ import {withRouter, Link} from 'react-router-dom'
 import {Jumbotron, FormControl, Button, ControlLabel} from 'react-bootstrap'
 import {getAllProducts} from '../store/products'
 import {updateCart} from '../store/cart'
-import {setQuantity} from '../store/quantity'
 import {fetchSizes, selectSize} from '../store/sizes'
 import {fetchInventory, setInventory} from '../store/inventory'
-
 
 class SingleProduct extends Component {
   constructor() {
@@ -134,7 +132,6 @@ const mapDispatch = dispatch => ({
     dispatch(updateCart(product, quantity, size)),
   loadAllSizes: id => dispatch(fetchSizes(id)),
   selectSize: num => dispatch(selectSize(num)),
-  setQuantity: quantity => dispatch(setQuantity(quantity)),
   loadInventory: id => dispatch(fetchInventory(id)),
   setInventory: num => dispatch(setInventory(num))
 })
