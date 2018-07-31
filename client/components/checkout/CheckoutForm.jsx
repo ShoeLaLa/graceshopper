@@ -15,11 +15,10 @@ class CheckoutForm extends Component {
     event.preventDefault()
     try {
       const {token} = await this.props.stripe.createToken({name: 'Name'})
-      const response = await axios.post('/charge', {
+      await axios.post('/charge', {
         token: token.id,
         amount: this.props.amount
       })
-      console.log('Purchase Complete!')
       this.props.history.push('/sucessfulPurchase')
     } catch (err) {
       console.error(err)
@@ -29,8 +28,8 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
         <CardElement />
+        <p>Would you like to complete the purchase?</p>
         <Button onClick={this.submit}>Send</Button>
       </div>
     )

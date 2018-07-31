@@ -20,6 +20,7 @@ class Cart extends Component {
   render() {
     const {subtotal} = this.state
     const cart = this.props.cart
+    const children = this.props.children
     return (
       <div>
         <Table>
@@ -34,9 +35,7 @@ class Cart extends Component {
             </tr>
           </thead>
           <tbody>
-            {cart.map(product => (
-              <CartProduct key={product.id} product={product} />
-            ))}
+            {children}
             <CartSubtotal />
           </tbody>
         </Table>

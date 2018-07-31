@@ -2,10 +2,10 @@ import React from 'react'
 import {Elements, StripeProvider} from 'react-stripe-elements'
 import CheckoutForm from './CheckoutForm'
 
-const CheckoutPage = () => (
+const CheckoutSection = () => (
   <StripeProvider apiKey="pk_test_1qaUi7WeeHsg14IziLUiZcgq">
     <div className="example">
-      <h1>React Stripe Elements Example</h1>
+      <h1>Checkout</h1>
       <Elements>
         <CheckoutForm />
       </Elements>
@@ -13,4 +13,4 @@ const CheckoutPage = () => (
   </StripeProvider>
 )
 
-export default CheckoutPage
+export default CheckoutSection
