@@ -1,7 +1,7 @@
 const {expect} = require('chai')
 const request = require('supertest')
 const app = require('../')
-const {order} = require('../../testData')
+const {order} = require('../../testData/order')
 const db = require('../db')
 
 describe('/api/order', () => {
