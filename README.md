@@ -12,3 +12,5 @@ Since this is not an actual online store, but rather a mockup, please do not ent
 
 # Process
 We used continuous integration (Travis CI) and Heroku to deploy our website. On the back-end, we used Express as the server, and PostgreSQL as the database. On the front-end, we used React, Redux, React-Redux and Stripe for the checkout page. 
+API Used: Stripe, Github (Oauth)
+Design: React-Bootstram framework
