@@ -81,7 +81,8 @@ class AuthForm extends Component {
 
         <a href="/auth/github">
           <Button bsStyle="outline-info waves-effect">
-            {displayName} with GitHub
+            {displayName} with{'    '}
+            <img src="/pictures/GitHub-Mark-120px-plus.jpg" className="git" />
           </Button>
         </a>
         <br />
