@@ -8,3 +8,7 @@ Check the store to see these amazing shoes! https://graceshopper-shoelala.heroku
 
 # Checkout
 Since this is not an actual online store, but rather a mockup, please do not enter any legitimate data such as your credit/debit card number, when checking out. Other than that, have fun! 
+
+
+# Process
+We used continuous integration (Travis CI) and Heroku to deploy our website. On the back-end, we used Express as the server, and PostgreSQL as the database. On the front-end, we used React, Redux, React-Redux and Stripe for the checkout page. 
