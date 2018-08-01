@@ -4,6 +4,7 @@ import {injectStripe} from 'react-stripe-elements'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import CheckoutFormPresentation from './CheckoutFormPresentation'
+import {wipeCart} from '../../store/cart'
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class CheckoutForm extends Component {
           cart: this.props.cart
         })
       ])
+      this.props.clearCart()
       this.props.history.push('/sucessfulPurchase')
     } catch (err) {
       console.error(err)
@@ -63,4 +65,12 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(injectStripe(withRouter(CheckoutForm)))
+const mapDispatch = dispatch => {
+  return {
+    clearCart: () => dispatch(wipeCart())
+  }
+}
+
+export default connect(mapState, mapDispatch)(
+  injectStripe(withRouter(CheckoutForm))
+)
