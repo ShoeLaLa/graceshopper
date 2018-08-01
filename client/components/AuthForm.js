@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Button} from 'react-bootstrap'
+import Video from './Video'
 
 /**
  * COMPONENT
@@ -51,6 +52,9 @@ const AuthForm = props => {
           {displayName} with GitHub
         </Button>
       </a>
+
+      <br />
+      <Video />
     </div>
   )
 }

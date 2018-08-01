@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Jumbotron} from 'react-bootstrap'
 import ChangePassword from './ChangePassword'
+import Video from './Video'
 
 export const UserHome = props => {
   const {email, username} = props
@@ -14,7 +15,10 @@ export const UserHome = props => {
   return (
     <div>
       <Jumbotron>
-        <h3>Welcome, {username ? username : convertedEmail}</h3>
+        <h3>
+          Welcome, {username ? username : convertedEmail}
+          <Video />
+        </h3>
         {email ? <h4> Email: {email}</h4> : <br />}
         <br />
         <h4> Change Password</h4>
