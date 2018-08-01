@@ -15,10 +15,7 @@ export const UserHome = props => {
   return (
     <div>
       <Jumbotron>
-        <h3>
-          Welcome, {username ? username : convertedEmail}
-          <Video />
-        </h3>
+        <h3>Welcome, {username ? username : convertedEmail}</h3>
         {email ? <h4> Email: {email}</h4> : <br />}
         <br />
         <h4> Change Password</h4>
