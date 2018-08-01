@@ -30,7 +30,7 @@ class ProductCard extends React.Component {
     const size = this.props.sizes.selectedSize
     await this.props.editCart(this.props.product, quantity, size)
     const num = this.props.inventory.inventoryLeft - quantity
-    await this.props.loadInventory(this.props.product.id);
+    await this.props.loadInventory(this.props.product.id)
     await this.props.setInventory(num)
   }
 
@@ -116,16 +116,16 @@ class ProductCard extends React.Component {
                 )
               })}
             </FormControl>
-            <button type="submit" className="btn-save btn btn-primary btn-sm">
+            {/* <button type="submit" className="btn-save btn btn-primary btn-sm">
               Save
-            </button>
+            </button> */}
           </div>
           <Button onClick={this.handleClick} bsStyle="success">
             Add to Cart
           </Button>
-          <Link to="/">
+          {/* <Link to="/">
             <Button bsStyle="primary">Add to Wishlist</Button>
-          </Link>
+          </Link> */}
           <p>${price}</p>
         </div>
       </div>

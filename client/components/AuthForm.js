@@ -73,11 +73,11 @@ class AuthForm extends Component {
           {error && error.response && <div> {error.response.data} </div>}
         </form>
 
-        <a href="/auth/google/callback">
+        {/* <a href="/auth/google/callback">
           <Button bsStyle="outline-info waves-effect">
             {displayName} with Google
           </Button>
-        </a>
+        </a> */}
 
         <a href="/auth/github">
           <Button bsStyle="outline-info waves-effect">
