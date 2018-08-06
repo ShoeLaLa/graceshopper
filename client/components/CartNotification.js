@@ -3,7 +3,7 @@ import {Popover} from 'react-bootstrap'
 
 const PopoverBottom = (
   <Popover id="popover-positioned-bottom" title="Popover bottom">
-    <strong>Holy guacamole!</strong> Check this info
+    <strong>Holy guacamole! just adding something</strong> Check this info
   </Popover>
 )
 
